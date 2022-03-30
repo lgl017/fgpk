@@ -334,7 +334,7 @@
                                 <img src="~/assets/ui/rebirthOutline.png" width="111px" :class="{ 'd-none':currentPage != 'rebirth' }" />
                             </button>
                         </div>
-                        <div class="col-auto text-center" style="width:125px;">
+                        <div v-if="years > 10000" class="col-auto text-center" style="width:125px;">
                             <button type="button" class="btn p-0 border-0 grow" :class="{ 'active':currentPage == 'cosmos' }" @click="setCurrentPage('cosmos')">
                                 <img src="~/assets/ui/cosmos.png" width="100px" :class="{ 'd-none':currentPage == 'cosmos' }" />
                                 <img src="~/assets/ui/cosmosOutline.png" width="111px" :class="{ 'd-none':currentPage != 'cosmos' }" />
@@ -599,18 +599,18 @@
                             <TaskLocked v-if="getSkill('productivity').visible == true && getSkill('productivity').unlocked == false" :task="getSkill('productivity')">
                                 <Requirement :req="getSkill('productivity').reqs[0]" :task="getSkill('concentration')" />
                             </TaskLocked>
-                            <SkillUnlocked v-if="getSkill('productivity').unlocked == true" bg="listbg4" :skill="getSkill('productivity')" :effectId="'jobSpeed'" :gain="getTaskGain(getSkill('productivity'))" :isActive="isSkillActive('productivity')" @activate="setCurrentSkill('productivity')" />
+                            <SkillUnlocked v-if="getSkill('productivity').unlocked == true" bg="listbg6" :skill="getSkill('productivity')" :effectId="'jobSpeed'" :gain="getTaskGain(getSkill('productivity'))" :isActive="isSkillActive('productivity')" @activate="setCurrentSkill('productivity')" />
 
                             <TaskLocked v-if="getSkill('bargaining').visible == true && getSkill('bargaining').unlocked == false" :task="getSkill('bargaining')">
                                 <Requirement :req="getSkill('bargaining').reqs[0]" :task="getSkill('concentration')" />
                             </TaskLocked>
-                            <SkillUnlocked v-if="getSkill('bargaining').unlocked == true" bg="listbg4" :skill="getSkill('bargaining')" :effectId="'allExpenses'" :gain="getTaskGain(getSkill('bargaining'))" :isActive="isSkillActive('bargaining')" @activate="setCurrentSkill('bargaining')" />
+                            <SkillUnlocked v-if="getSkill('bargaining').unlocked == true" bg="listbg6" :skill="getSkill('bargaining')" :effectId="'allExpenses'" :gain="getTaskGain(getSkill('bargaining'))" :isActive="isSkillActive('bargaining')" @activate="setCurrentSkill('bargaining')" />
                             
                             <TaskLocked v-if="getSkill('meditation').visible == true && getSkill('meditation').unlocked == false" :task="getSkill('meditation')">
                                 <Requirement :req="getSkill('meditation').reqs[0]" :task="getSkill('concentration')" />
                                 <Requirement :req="getSkill('meditation').reqs[1]" :task="getSkill('productivity')" />
                             </TaskLocked>
-                            <SkillUnlocked v-if="getSkill('meditation').unlocked == true" bg="listbg4" :skill="getSkill('meditation')" :effectId="'happiness'" :gain="getTaskGain(getSkill('meditation'))" :isActive="isSkillActive('meditation')" @activate="setCurrentSkill('meditation')" />
+                            <SkillUnlocked v-if="getSkill('meditation').unlocked == true" bg="listbg6" :skill="getSkill('meditation')" :effectId="'happiness'" :gain="getTaskGain(getSkill('meditation'))" :isActive="isSkillActive('meditation')" @activate="setCurrentSkill('meditation')" />
                             
                         </Title>
                         
