@@ -2,6 +2,7 @@ export default {
     
     'screenLoading_text': 'Loading...',
     
+    'word_lvl': 'Lvl',
     'word_days': 'd',
     'word_autoExclude': 'Skip',
     
@@ -289,4 +290,15 @@ export default {
     'effectName_skillSpeed': 'All Skills speed',
     'effectName_strengthSpeed': 'Strength Skill speed',
     'effectName_voidSpeed': 'The Void Jobs speed',
+    
+    'achRow_click': 'Click',
+    'achRow_days': 'Age',
+    'achRow_ coins': 'Coins',
+    'achRow_happiness': 'Happiness',
+    'achRow_evil': 'Evil',
+    'achRow_essence': 'Essence',
+    'achRow_timeWarping': 'Time Warping',
+    'achRow_features': 'Features',
+    
+    'desc_days4': 'Halfway there',
 }

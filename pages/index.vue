@@ -1070,6 +1070,76 @@
                     
                     </div>
                     
+                    <div v-if="currentPage == 'achievements'" class="pt-4">
+                        <div class="container">
+                            <div class="row">
+                                <AchievementRow text="achRow_click">
+                                    <Achievement :achievement="getAchievement('click1')" />
+                                    <Achievement :achievement="getAchievement('click2')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_days">
+                                    <Achievement :achievement="getAchievement('days1')" />
+                                    <Achievement :achievement="getAchievement('days2')" />
+                                    <Achievement :achievement="getAchievement('days3')" />
+                                    <Achievement :achievement="getAchievement('days4')" />
+                                    <Achievement :achievement="getAchievement('days5')" />
+                                    <Achievement :achievement="getAchievement('days6')" />
+                                    <Achievement :achievement="getAchievement('days7')" />
+                                    <Achievement :achievement="getAchievement('days8')" />
+                                    <Achievement :achievement="getAchievement('days9')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_ coins">
+                                    <Achievement :achievement="getAchievement('coins1')" />
+                                    <Achievement :achievement="getAchievement('coins2')" />
+                                    <Achievement :achievement="getAchievement('coins3')" />
+                                    <Achievement :achievement="getAchievement('coins4')" />
+                                    <Achievement :achievement="getAchievement('coins5')" />
+                                    <Achievement :achievement="getAchievement('coins6')" />
+                                    <Achievement :achievement="getAchievement('coins7')" />
+                                    <Achievement :achievement="getAchievement('coins8')" />
+                                    <Achievement :achievement="getAchievement('coins9')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_happiness">
+                                    <Achievement :achievement="getAchievement('happiness1')" />
+                                    <Achievement :achievement="getAchievement('happiness2')" />
+                                    <Achievement :achievement="getAchievement('happiness3')" />
+                                    <Achievement :achievement="getAchievement('happiness4')" />
+                                    <Achievement :achievement="getAchievement('happiness5')" />
+                                    <Achievement :achievement="getAchievement('happiness6')" />
+                                    <Achievement :achievement="getAchievement('happiness7')" />
+                                    <Achievement :achievement="getAchievement('happiness8')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_evil">
+                                    <Achievement :achievement="getAchievement('evil1')" />
+                                    <Achievement :achievement="getAchievement('evil2')" />
+                                    <Achievement :achievement="getAchievement('evil3')" />
+                                    <Achievement :achievement="getAchievement('evil4')" />
+                                    <Achievement :achievement="getAchievement('evil5')" />
+                                    <Achievement :achievement="getAchievement('evil6')" />
+                                    <Achievement :achievement="getAchievement('evil7')" />
+                                    <Achievement :achievement="getAchievement('evil8')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_essence">
+                                    <Achievement :achievement="getAchievement('essence1')" />
+                                    <Achievement :achievement="getAchievement('essence2')" />
+                                    <Achievement :achievement="getAchievement('essence3')" />
+                                    <Achievement :achievement="getAchievement('essence4')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_timeWarping">
+                                    <Achievement :achievement="getAchievement('timeWarping1')" />
+                                    <Achievement :achievement="getAchievement('timeWarping2')" />
+                                    <Achievement :achievement="getAchievement('timeWarping3')" />
+                                    <Achievement :achievement="getAchievement('timeWarping4')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_features">
+                                    <Achievement :achievement="getAchievement('autoJob')" />
+                                    <Achievement :achievement="getAchievement('autoSkill')" />
+                                    <Achievement :achievement="getAchievement('autoPause')" />
+                                </AchievementRow>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
                 
             </div>
@@ -1383,6 +1453,77 @@ class Artefact extends Item {
     }
 }
 
+var achievementData = [
+
+    { id:'click1', type:'click', level:1, limit:1,     },
+    { id:'click2', type:'click', level:2, limit:10000, },
+
+    { id:'days1', type:'days', level:1, limit:18 * 365,      },
+    { id:'days2', type:'days', level:2, limit:30 * 365,      },
+    { id:'days3', type:'days', level:3, limit:65 * 365,      },
+    { id:'days4', type:'days', level:4, limit:100 * 365,     },
+    { id:'days5', type:'days', level:5, limit:200 * 365,     },
+    { id:'days6', type:'days', level:6, limit:1000 * 365,    gameSpeed:1.1, },
+    { id:'days7', type:'days', level:7, limit:10000 * 365,   gameSpeed:1.2, },
+    { id:'days8', type:'days', level:8, limit:100000 * 365,  gameSpeed:1.3, },
+    { id:'days9', type:'days', level:9, limit:1000000 * 365, gameSpeed:1.4, },
+
+    { id:'coins1', type:'coins', level:1, limit:100,                      },
+    { id:'coins2', type:'coins', level:2, limit:10000,                    },
+    { id:'coins3', type:'coins', level:3, limit:1000000,                  },
+    { id:'coins4', type:'coins', level:4, limit:10000000000,              },
+    { id:'coins5', type:'coins', level:5, limit:10000000000000,           allExpenses:1.1, },
+    { id:'coins6', type:'coins', level:6, limit:1000000000000000,         allExpenses:1.1, },
+    { id:'coins7', type:'coins', level:7, limit:100000000000000000,       allExpenses:1.1, },
+    { id:'coins8', type:'coins', level:8, limit:100000000000000000000,    allExpenses:1.1, },
+    { id:'coins9', type:'coins', level:9, limit:200000000000000000000000, allExpenses:1.1, },
+
+    { id:'happiness1', type:'happiness', level:1, limit:10,        },
+    { id:'happiness2', type:'happiness', level:2, limit:500,       },
+    { id:'happiness3', type:'happiness', level:3, limit:10000,     },
+    { id:'happiness4', type:'happiness', level:4, limit:100000,    happiness:1.05 },
+    { id:'happiness5', type:'happiness', level:5, limit:1000000,   happiness:1.05 },
+    { id:'happiness6', type:'happiness', level:6, limit:10000000,  happiness:1.05 },
+    { id:'happiness7', type:'happiness', level:7, limit:100000000, happiness:1.05 },
+    { id:'happiness8', type:'happiness', level:8, limit:300000000, happiness:1.05 },
+
+    { id:'evil1', type:'evil', level:1, limit:1,           },
+    { id:'evil2', type:'evil', level:2, limit:50,          },
+    { id:'evil3', type:'evil', level:3, limit:500,         evilGain:1.25, },
+    { id:'evil4', type:'evil', level:4, limit:5000,        evilGain:1.25, },
+    { id:'evil5', type:'evil', level:5, limit:50000,       evilGain:1.1,  },
+    { id:'evil6', type:'evil', level:6, limit:2500000,     evilGain:1.2,  },
+    { id:'evil7', type:'evil', level:7, limit:1000000000,  evilGain:1.2,  },
+    { id:'evil8', type:'evil', level:8, limit:10000000000, evilGain:10,   },
+
+    { id:'essence1', type:'essence', level:1, limit:1,      },
+    { id:'essence2', type:'essence', level:2, limit:10000,  essenceGain:1.50, },
+    { id:'essence3', type:'essence', level:3, limit:30000,  essenceGain:1.50, },
+    { id:'essence4', type:'essence', level:4, limit:100000, essenceGain:10,   },
+
+    { id:'timeWarping1', type:'timeWarping', level:1, limit:10,   },
+    { id:'timeWarping2', type:'timeWarping', level:2, limit:100,  },
+    { id:'timeWarping3', type:'timeWarping', level:3, limit:500,  gameSpeed:1.25, },
+    { id:'timeWarping4', type:'timeWarping', level:4, limit:1000, gameSpeed:1.25, },
+
+    { id:'autoJob',   level:1, },
+    { id:'autoSkill', level:2, },
+    { id:'autoPause', level:3, },
+]
+
+class Achievement {
+    
+    constructor(data) {
+    
+        this.id = data.id
+        this.check = data.check || function(state) { return true }
+        this.apply = data.apply || function(state) {}
+        this.level = data.level
+        
+        this.done = false
+    }
+}
+
 export default {
 
     data() {
@@ -1408,6 +1549,7 @@ export default {
             skills:[],
             artefacts:[],
             properties:[],
+            achievements:[],
             
             days:15 * 365,
             coins:0,
@@ -1558,6 +1700,12 @@ export default {
                 this.artefacts.push(artefact)
             })
             
+            achievementData.forEach(data => {
+                
+                let achievement = new Achievement(data)
+                this.achievements.push(achievement)
+            })
+            
             this.jobs.forEach(job => {
             
                 job.gainMods.push(this.getSkill('productivity'))
@@ -1671,7 +1819,7 @@ export default {
                 loadeddata = JSON.parse(text)
                 
                 this.locale = loadeddata.locale || this.locale
-                this.lastUpdateTimeMs = loadeddata.lastUpdateTimeMs || this.lastUpdateTimeMs
+                // this.lastUpdateTimeMs = loadeddata.lastUpdateTimeMs || this.lastUpdateTimeMs
                 
                 this.currentPage = loadeddata.currentPage || this.currentPage
                 
@@ -1907,6 +2055,15 @@ export default {
                 this.properties.forEach(property => { if (property.unlocked == false) property.unlocked = this.isUnlocked(property) })
 
                 this.artefacts.forEach(artefact => { if (artefact.unlocked == false) artefact.unlocked = this.isUnlocked(artefact) })
+                
+                this.achievements.forEach(achievement => {
+                    if (achievement.done == false) {
+                        if (achievement.check(this) == true) {
+                            achievement.done = true
+                            achievement.apply(this)
+                        }
+                    }
+                })
             }
         },
         
@@ -1953,6 +2110,13 @@ export default {
         
             let ret = this.artefacts.find(artefact => artefact.id == artefactId)
             if (ret == null) console.error(artefactId)
+            return ret
+        },
+
+        getAchievement(achievementId) {
+        
+            let ret = this.achievements.find(achievement => achievement.id == achievementId)
+            if (ret == null) console.error(achievementId)
             return ret
         },
         
