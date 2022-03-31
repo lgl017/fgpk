@@ -608,6 +608,13 @@
                             </TaskLocked>
                             <JobUnlocked v-if="getJob('oneAboveAll').unlocked == true" bg="listbg4" :job="getJob('oneAboveAll')" :gain="getTaskGain(getJob('oneAboveAll'))" :isActive="isJobActive('oneAboveAll')" @activate="setCurrentJob('oneAboveAll')" />
                             
+                            <TaskLocked v-if="getJob('oneBelowAll').visible == true && getJob('oneBelowAll').unlocked == false" :task="getJob('oneBelowAll')">
+                                <Requirement :req="getJob('oneBelowAll').reqs[0]" :task="getJob('evilIncarnate')" />
+                                <Requirement :req="getJob('oneBelowAll').reqs[1]" :task="getSkill('oneAboveAll')" />
+                                <Requirement :req="getJob('oneBelowAll').reqs[2]" :task="getSkill('yinYang')" />
+                            </TaskLocked>
+                            <JobUnlocked v-if="getJob('oneBelowAll').unlocked == true" bg="listbg4" :job="getJob('oneBelowAll')" :gain="getTaskGain(getJob('oneBelowAll'))" :isActive="isJobActive('oneBelowAll')" @activate="setCurrentJob('oneBelowAll')" />
+                            
                         </Title>
                         
                     </div>
@@ -767,6 +774,12 @@
                             </TaskLocked>
                             <SkillUnlocked v-if="getSkill('galacticCommand').unlocked == true" bg="listbg4" :skill="getSkill('galacticCommand')" :effectId="'allExpenses'" :gain="getTaskGain(getSkill('galacticCommand'))" :isActive="isSkillActive('galacticCommand')" @activate="setCurrentSkill('galacticCommand')" />
 	                            
+                            <TaskLocked v-if="getSkill('omnipotence').visible == true && getSkill('omnipotence').unlocked == false" :task="getSkill('omnipotence')">
+                                <Requirement :req="getSkill('omnipotence').reqs[0]" :task="getSkill('oneAboveAll')" />
+                                <Requirement :req="getSkill('omnipotence').reqs[1]" :task="getSkill('higherDimensions')" />
+                            </TaskLocked>
+                            <SkillUnlocked v-if="getSkill('omnipotence').unlocked == true" bg="listbg4" :skill="getSkill('omnipotence')" :effectId="'allSpeed'" :gain="getTaskGain(getSkill('omnipotence'))" :isActive="isSkillActive('omnipotence')" @activate="setCurrentSkill('omnipotence')" />
+                            
                         </Title>
                         
                         <Title v-if="getSkill('darkInfluence').unlocked == true" image="skillDark">
@@ -883,6 +896,9 @@
 
                             <ItemLocked v-if="getItem('astralRealm').unlocked == true && getItem('galacticThrone').unlocked == false" :item="getItem('galacticThrone')"  />
                             <ItemUnlocked v-if="getItem('galacticThrone').unlocked == true" :item="getItem('galacticThrone')" effectId="happiness" @activate="setCurrentProperty('galacticThrone')" />
+
+                            <ItemLocked v-if="getItem('galacticThrone').unlocked == true && getItem('multiverseCreator').unlocked == false" :item="getItem('multiverseCreator')"  />
+                            <ItemUnlocked v-if="getItem('multiverseCreator').unlocked == true" :item="getItem('multiverseCreator')" effectId="happiness" @activate="setCurrentProperty('multiverseCreator')" />
                             
                         </Title>
                         
@@ -1167,6 +1183,7 @@
                                     <Achievement :achievement="getAchievement('achNationRuler')" />
                                     <Achievement :achievement="getAchievement('achVoidUniverse')" />
                                     <Achievement :achievement="getAchievement('achGalacticThrone')" />
+                                    <Achievement :achievement="getAchievement('achMultiverseCreator')" />
                                 </AchievementRow>
                                 <AchievementRow text="achRow_artefacts">
                                     <Achievement :achievement="getAchievement('achBook')" />
@@ -1336,7 +1353,8 @@ var jobData = [
     { id:'nova',                cat:'galactic',        max:51e18,          income:3e12,    reqs:[{ id:'eternalWanderer', level:15 },{ id:'cosmicLongevity', level:4e3 }], },
     { id:'sigmaProioxis',       cat:'galactic',        max:500e18,         income:25e12,   reqs:[{ id:'nova', level:200 },{ id:'cosmicRecollection', level:4.5e3 }], },
     { id:'acallaris',           cat:'galactic',        max:50e21,          income:215e12,  reqs:[{ id:'galacticCommand', level:5e3 },{ id:'sigmaProioxis', level:1e3 }], },
-    { id:'oneAboveAll',         cat:'galactic',        max:5e27,           income:25e15,   reqs:[{ id:'meditation', level:6.3e3 },{ id:'acallaris', level:1.4e3 }], },
+    { id:'oneAboveAll',         cat:'galactic',        max:5e27,           income:25e15,   reqs:[{ id:'meditation', level:6e3 },{ id:'acallaris', level:1.1e3 }], },
+    { id:'oneBelowAll',         cat:'galactic',        max:5e30,           income:26.5e15, reqs:[{ id:'evilIncarnate', level:8.5e3 },{ id:'oneAboveAll', level:1 },{ id:'yinYang', level:7.5e3 }], },
 ]
 
 class Job extends Task {
@@ -1392,6 +1410,7 @@ var skillData = [
     { id:'cosmicRecollection',  cat:'power',            effect:0.00065,    reqs:[{ id:'nova', level:50 },{ id:'meditation', level:4.2e3 },{ id:'mindSeize', level:3e3 }], },
     { id:'essenceCollector',    cat:'power',            effect:0.01,       reqs:[{ id:'sigmaProioxis', level:500 },{ id:'absoluteWish', level:4.9e3 },{ id:'darkKnowledge', level:6.3e3 }], },
     { id:'galacticCommand',     cat:'power',            effect:-0.01,      reqs:[{ id:'essenceCollector', level:5e3 },{ id:'bargaining', level:5e3 }], },
+    { id:'omnipotence',         cat:'power',            effect:0.0008,     reqs:[{ id:'oneAboveAll', level:1 },{ id:'higherDimensions', level:6.7e3 }], },
 	
     { id:'darkInfluence',       cat:'dark',             effect:0.01,       evilReq:1,      },
     { id:'evilControl',         cat:'dark',             effect:0.01,       evilReq:1,      },
@@ -1498,6 +1517,7 @@ var propertyData = [
     { id:'voidUniverse',        expense:2e12,       effect:30e3,      coinReq:200e12,     },
     { id:'astralRealm',         expense:160e12,     effect:150e3,     coinReq:1.6e15,     },
     { id:'galacticThrone',      expense:5e15,       effect:300e3,     coinReq:500e15,     },
+    { id:'multiverseCreator',   expense:1110690e12, effect:1e6,       coinReq:111069e15,  },
 ]
 
 class Property extends Item {
@@ -1593,14 +1613,15 @@ var achievementData = [
     { id:'autoSkill', type:'features', level:2, check:function(state) { return state.years >= 20 || state.rebirthOneCount >= 1 }, },
     { id:'autoPause', type:'features', level:3, check:function(state) { return state.getJob('corrupted').unlocked || state.rebirthThreeCount > 0 }, },
 
-    { id:'achTent',              type:'properties', level:1, check:function(state) { return state.getItem('tent').unlocked },           },
-    { id:'achHouse',             type:'properties', level:2, check:function(state) { return state.getItem('house').unlocked },          },
-    { id:'achSmallPalace',       type:'properties', level:3, check:function(state) { return state.getItem('smallPalace').unlocked },    },
-    { id:'achGrandPalace',       type:'properties', level:4, check:function(state) { return state.getItem('grandPalace').unlocked },    },
-    { id:'achTownRuler',         type:'properties', level:5, check:function(state) { return state.getItem('townRuler').unlocked },      },
-    { id:'achNationRuler',       type:'properties', level:6, check:function(state) { return state.getItem('nationRuler').unlocked },    apply:function(state) { state.achLifespan += .1 }, },
-    { id:'achVoidUniverse',      type:'properties', level:7, check:function(state) { return state.getItem('voidUniverse').unlocked },   apply:function(state) { state.achLifespan += .1 }, },
-    { id:'achGalacticThrone',    type:'properties', level:8, check:function(state) { return state.getItem('galacticThrone').unlocked }, apply:function(state) { state.achLifespan += .15 }, },
+    { id:'achTent',              type:'properties', level:1, check:function(state) { return state.getItem('tent').unlocked },              },
+    { id:'achHouse',             type:'properties', level:2, check:function(state) { return state.getItem('house').unlocked },             },
+    { id:'achSmallPalace',       type:'properties', level:3, check:function(state) { return state.getItem('smallPalace').unlocked },       },
+    { id:'achGrandPalace',       type:'properties', level:4, check:function(state) { return state.getItem('grandPalace').unlocked },       },
+    { id:'achTownRuler',         type:'properties', level:5, check:function(state) { return state.getItem('townRuler').unlocked },         },
+    { id:'achNationRuler',       type:'properties', level:6, check:function(state) { return state.getItem('nationRuler').unlocked },       apply:function(state) { state.achLifespan += .1 }, },
+    { id:'achVoidUniverse',      type:'properties', level:7, check:function(state) { return state.getItem('voidUniverse').unlocked },      apply:function(state) { state.achLifespan += .1 }, },
+    { id:'achGalacticThrone',    type:'properties', level:8, check:function(state) { return state.getItem('galacticThrone').unlocked },    apply:function(state) { state.achLifespan += .15 }, },
+    { id:'achMultiverseCreator', type:'properties', level:9, check:function(state) { return state.getItem('multiverseCreator').unlocked }, apply:function(state) { state.achLifespan += .15 }, },
 
     { id:'achBook',               type:'artefacts', level:1, check:function(state) { return state.getItem('book').unlocked },               },
     { id:'achButler',             type:'artefacts', level:2, check:function(state) { return state.getItem('butler').unlocked },             },
