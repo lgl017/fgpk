@@ -307,6 +307,27 @@
             </div>
             
             <div class="ms-3 col bg-popup position-relative pt-4">
+            
+                <div v-if="toastAchievement" class="position-absolute p-2 start-0 end-0 bottom-0" style="z-index:10;">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-auto">
+                            <div class="bg-achievement p-2 position-relative" style="width:48px; height:48px;">
+                                <div class="text-muted small text-shadow text-center">{{ $t('word_lvl') }}</div>
+                                <div class="text-light text-shadow text-center">{{ toastAchievement.level }}</div>
+                                <div class="position-absolute" style="bottom:-12px; right:-12px;">
+                                    <img src="~/assets/ui/achievementDone.png" width="36px" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="bg-item-desc p-2" style="min-width:150px;">
+                                <div class="mb-1 text-light text-shadow">{{ $t('desc_' + toastAchievement.id) }}</div>
+                                <div class="small text-muted text-shadow">{{ $t('check_' + toastAchievement.id) }}</div>
+                                <div v-if="toastAchievement.apply" class="mt-1 small text-success text-shadow">{{ $t('bonus_' + toastAchievement.id) }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="container position-absolute" style="top:-77px;">
                     <div class="row gx-3 justify-content-center">
@@ -1321,7 +1342,7 @@ var skillData = [
     { id:'timeLoop',            cat:'dark',             effect:0.001,      evilReq:250e3,  },
     { id:'evilIncarnate',       cat:'dark',             effect:0.0004,     evilReq:1e9,    },
 	
-    { id:'yinYang',            cat:'almightiness',     effect:0.018,       essenceReq:1,       },
+    { id:'yinYang',             cat:'almightiness',     effect:0.018,      essenceReq:1,       },
     { id:'parallelUniverse',    cat:'almightiness',     effect:0.02,       essenceReq:1,       },
     { id:'higherDimensions',    cat:'almightiness',     effect:0.001,      essenceReq:10e3,    },
     { id:'epiphany',            cat:'almightiness',     effect:0.01,       essenceReq:30e3,    },
@@ -1455,60 +1476,60 @@ class Artefact extends Item {
 
 var achievementData = [
 
-    { id:'click1', type:'click', level:1, limit:1,     },
-    { id:'click2', type:'click', level:2, limit:10000, },
+    { id:'click1', type:'click', level:1, check:function(state) { return state.clickCount >= 1 },     },
+    { id:'click2', type:'click', level:2, check:function(state) { return state.clickCount >= 10000 }, },
 
-    { id:'days1', type:'days', level:1, limit:18 * 365,      },
-    { id:'days2', type:'days', level:2, limit:30 * 365,      },
-    { id:'days3', type:'days', level:3, limit:65 * 365,      },
-    { id:'days4', type:'days', level:4, limit:100 * 365,     },
-    { id:'days5', type:'days', level:5, limit:200 * 365,     },
-    { id:'days6', type:'days', level:6, limit:1000 * 365,    gameSpeed:1.1, },
-    { id:'days7', type:'days', level:7, limit:10000 * 365,   gameSpeed:1.2, },
-    { id:'days8', type:'days', level:8, limit:100000 * 365,  gameSpeed:1.3, },
-    { id:'days9', type:'days', level:9, limit:1000000 * 365, gameSpeed:1.4, },
+    { id:'days1', type:'days', level:1, check:function(state) { return state.days >= 18 * 365 },      },
+    { id:'days2', type:'days', level:2, check:function(state) { return state.days >= 30 * 365 },      },
+    { id:'days3', type:'days', level:3, check:function(state) { return state.days >= 65 * 365 },      },
+    { id:'days4', type:'days', level:4, check:function(state) { return state.days >= 100 * 365 },     },
+    { id:'days5', type:'days', level:5, check:function(state) { return state.days >= 200 * 365 },     },
+    { id:'days6', type:'days', level:6, check:function(state) { return state.days >= 1000 * 365 },    apply:function(state) { state.achGameSpeed += .1 }, },
+    { id:'days7', type:'days', level:7, check:function(state) { return state.days >= 10000 * 365 },   apply:function(state) { state.achGameSpeed += .2 }, },
+    { id:'days8', type:'days', level:8, check:function(state) { return state.days >= 100000 * 365 },  apply:function(state) { state.achGameSpeed += .3 }, },
+    { id:'days9', type:'days', level:9, check:function(state) { return state.days >= 1000000 * 365 }, apply:function(state) { state.achGameSpeed += .4 }, },
 
-    { id:'coins1', type:'coins', level:1, limit:100,                      },
-    { id:'coins2', type:'coins', level:2, limit:10000,                    },
-    { id:'coins3', type:'coins', level:3, limit:1000000,                  },
-    { id:'coins4', type:'coins', level:4, limit:10000000000,              },
-    { id:'coins5', type:'coins', level:5, limit:10000000000000,           allExpenses:1.1, },
-    { id:'coins6', type:'coins', level:6, limit:1000000000000000,         allExpenses:1.1, },
-    { id:'coins7', type:'coins', level:7, limit:100000000000000000,       allExpenses:1.1, },
-    { id:'coins8', type:'coins', level:8, limit:100000000000000000000,    allExpenses:1.1, },
-    { id:'coins9', type:'coins', level:9, limit:200000000000000000000000, allExpenses:1.1, },
+    { id:'coins1', type:'coins', level:1, check:function(state) { return state.coins >= 100 },                      },
+    { id:'coins2', type:'coins', level:2, check:function(state) { return state.coins >= 10000 },                    },
+    { id:'coins3', type:'coins', level:3, check:function(state) { return state.coins >= 1000000 },                  },
+    { id:'coins4', type:'coins', level:4, check:function(state) { return state.coins >= 10000000000 },              },
+    { id:'coins5', type:'coins', level:5, check:function(state) { return state.coins >= 10000000000000 },           apply:function(state) { state.achExpense.value += .1 }, },
+    { id:'coins6', type:'coins', level:6, check:function(state) { return state.coins >= 1000000000000000 },         apply:function(state) { state.achExpense.value += .1 }, },
+    { id:'coins7', type:'coins', level:7, check:function(state) { return state.coins >= 100000000000000000 },       apply:function(state) { state.achExpense.value += .1 }, },
+    { id:'coins8', type:'coins', level:8, check:function(state) { return state.coins >= 100000000000000000000 },    apply:function(state) { state.achExpense.value += .1 }, },
+    { id:'coins9', type:'coins', level:9, check:function(state) { return state.coins >= 200000000000000000000000 }, apply:function(state) { state.achExpense.value += .1 }, },
 
-    { id:'happiness1', type:'happiness', level:1, limit:10,        },
-    { id:'happiness2', type:'happiness', level:2, limit:500,       },
-    { id:'happiness3', type:'happiness', level:3, limit:10000,     },
-    { id:'happiness4', type:'happiness', level:4, limit:100000,    happiness:1.05 },
-    { id:'happiness5', type:'happiness', level:5, limit:1000000,   happiness:1.05 },
-    { id:'happiness6', type:'happiness', level:6, limit:10000000,  happiness:1.05 },
-    { id:'happiness7', type:'happiness', level:7, limit:100000000, happiness:1.05 },
-    { id:'happiness8', type:'happiness', level:8, limit:300000000, happiness:1.05 },
+    { id:'happiness1', type:'happiness', level:1, check:function(state) { return state.happiness >= 10 },        },
+    { id:'happiness2', type:'happiness', level:2, check:function(state) { return state.happiness >= 500 },       },
+    { id:'happiness3', type:'happiness', level:3, check:function(state) { return state.happiness >= 10000 },     },
+    { id:'happiness4', type:'happiness', level:4, check:function(state) { return state.happiness >= 100000 },    apply:function(state) { state.achHappiness += .05 }, },
+    { id:'happiness5', type:'happiness', level:5, check:function(state) { return state.happiness >= 1000000 },   apply:function(state) { state.achHappiness += .05 }, },
+    { id:'happiness6', type:'happiness', level:6, check:function(state) { return state.happiness >= 10000000 },  apply:function(state) { state.achHappiness += .05 }, },
+    { id:'happiness7', type:'happiness', level:7, check:function(state) { return state.happiness >= 100000000 }, apply:function(state) { state.achHappiness += .05 }, },
+    { id:'happiness8', type:'happiness', level:8, check:function(state) { return state.happiness >= 300000000 }, apply:function(state) { state.achHappiness += .05 }, },
 
-    { id:'evil1', type:'evil', level:1, limit:1,           },
-    { id:'evil2', type:'evil', level:2, limit:50,          },
-    { id:'evil3', type:'evil', level:3, limit:500,         evilGain:1.25, },
-    { id:'evil4', type:'evil', level:4, limit:5000,        evilGain:1.25, },
-    { id:'evil5', type:'evil', level:5, limit:50000,       evilGain:1.1,  },
-    { id:'evil6', type:'evil', level:6, limit:2500000,     evilGain:1.2,  },
-    { id:'evil7', type:'evil', level:7, limit:1000000000,  evilGain:1.2,  },
-    { id:'evil8', type:'evil', level:8, limit:10000000000, evilGain:10,   },
+    { id:'evil1', type:'evil', level:1, check:function(state) { return state.evils >= 1 },           },
+    { id:'evil2', type:'evil', level:2, check:function(state) { return state.evils >= 50 },          },
+    { id:'evil3', type:'evil', level:3, check:function(state) { return state.evils >= 500 },         apply:function(state) { state.achEvilGain += .25 }, },
+    { id:'evil4', type:'evil', level:4, check:function(state) { return state.evils >= 5000 },        apply:function(state) { state.achEvilGain += .25 }, },
+    { id:'evil5', type:'evil', level:5, check:function(state) { return state.evils >= 50000 },       apply:function(state) { state.achEvilGain += .1  }, },
+    { id:'evil6', type:'evil', level:6, check:function(state) { return state.evils >= 2500000 },     apply:function(state) { state.achEvilGain += .2  }, },
+    { id:'evil7', type:'evil', level:7, check:function(state) { return state.evils >= 1000000000 },  apply:function(state) { state.achEvilGain += .2  }, },
+    { id:'evil8', type:'evil', level:8, check:function(state) { return state.evils >= 10000000000 }, apply:function(state) { state.achEvilGain += 9   }, },
 
-    { id:'essence1', type:'essence', level:1, limit:1,      },
-    { id:'essence2', type:'essence', level:2, limit:10000,  essenceGain:1.50, },
-    { id:'essence3', type:'essence', level:3, limit:30000,  essenceGain:1.50, },
-    { id:'essence4', type:'essence', level:4, limit:100000, essenceGain:10,   },
+    { id:'essence1', type:'essence', level:1, check:function(state) { return state.essences >= 1 },      },
+    { id:'essence2', type:'essence', level:2, check:function(state) { return state.essences >= 10000 },  apply:function(state) { state.achEssenceGain += .5 }, },
+    { id:'essence3', type:'essence', level:3, check:function(state) { return state.essences >= 30000 },  apply:function(state) { state.achEssenceGain += .5 }, },
+    { id:'essence4', type:'essence', level:4, check:function(state) { return state.essences >= 100000 }, apply:function(state) { state.achEssenceGain += 9  }, },
 
-    { id:'timeWarping1', type:'timeWarping', level:1, limit:10,   },
-    { id:'timeWarping2', type:'timeWarping', level:2, limit:100,  },
-    { id:'timeWarping3', type:'timeWarping', level:3, limit:500,  gameSpeed:1.25, },
-    { id:'timeWarping4', type:'timeWarping', level:4, limit:1000, gameSpeed:1.25, },
+    { id:'timeWarping1', type:'timeWarping', level:1, check:function(state) { return state.timeWarping >= 10 },   },
+    { id:'timeWarping2', type:'timeWarping', level:2, check:function(state) { return state.timeWarping >= 100 },  },
+    { id:'timeWarping3', type:'timeWarping', level:3, check:function(state) { return state.timeWarping >= 500 },  apply:function(state) { state.achGameSpeed += .25 }, },
+    { id:'timeWarping4', type:'timeWarping', level:4, check:function(state) { return state.timeWarping >= 1000 }, apply:function(state) { state.achGameSpeed += .25 }, },
 
-    { id:'autoJob',   level:1, },
-    { id:'autoSkill', level:2, },
-    { id:'autoPause', level:3, },
+    { id:'autoJob',   type:'features', level:1, check:function(state) { return state.years >= 20 || state.rebirthOneCount >= 1 }, },
+    { id:'autoSkill', type:'features', level:2, check:function(state) { return state.years >= 20 || state.rebirthOneCount >= 1 }, },
+    { id:'autoPause', type:'features', level:3, check:function(state) { return state.getJob('corrupted').unlocked || state.rebirthThreeCount > 0 }, },
 ]
 
 class Achievement {
@@ -1516,9 +1537,10 @@ class Achievement {
     constructor(data) {
     
         this.id = data.id
-        this.check = data.check || function(state) { return true }
-        this.apply = data.apply || function(state) {}
+        this.type = data.type
+        this.check = data.check || function(state) { return false }
         this.level = data.level
+        this.apply = data.apply
         
         this.done = false
     }
@@ -1541,9 +1563,11 @@ export default {
             
             localStorageName:'fgpk',
             
+            //-----
+            
             currentPage:'jobs',
             
-            //-----
+            toastAchievement:null,
             
             jobs:[],
             skills:[],
@@ -1556,6 +1580,7 @@ export default {
             evils:0,
             essences:0,
             pauseDelay:1000,
+            clickCount:0,
             
             paused:false,
             autoJobEnabled:false,
@@ -1570,6 +1595,12 @@ export default {
             rebirthOneCount:0,
             rebirthTwoCount:0,
             rebirthThreeCount:0,
+            
+            achGameSpeed:1.0,
+            achExpense:{ value:1, getEffect:function() { return this.value } },
+            achHappiness:1.0,
+            achEvilGain:1.0,
+            achEssenceGain:1.0,
         }
     },
     
@@ -1615,7 +1646,7 @@ export default {
             
             let timeWarpingSpeed = this.timeWarpingEnabled ? timeWarping.getEffect() + temporalDimension.getEffect() * timeLoop.getEffect() : 1
             
-            let ret = 4 * +!this.paused * +this.isAlive * timeWarpingSpeed
+            let ret = 4 * +!this.paused * +this.isAlive * timeWarpingSpeed * this.achGameSpeed * this.achHappiness
             return ret
         },
 
@@ -1658,7 +1689,7 @@ export default {
             let voidEmbodiment = this.getSkill('voidEmbodiment')
             let bloodMeditation = this.getSkill('bloodMeditation')
             
-            let ret = evilControl.getEffect() * bloodMeditation.getEffect() * absoluteWish.getEffect() * voidEmbodiment.getEffect() * yinYang.getEffect()
+            let ret = evilControl.getEffect() * bloodMeditation.getEffect() * absoluteWish.getEffect() * voidEmbodiment.getEffect() * yinYang.getEffect() * this.achEvilGain
             return ret
         },
         
@@ -1667,7 +1698,7 @@ export default {
             let yinYang = this.getSkill('yinYang')
             let essenceCollector = this.getSkill('essenceCollector')
             
-            let ret = yinYang.getEffect() * essenceCollector.getEffect()
+            let ret = yinYang.getEffect() * essenceCollector.getEffect() * this.achEssenceGain
             return ret
         },
     },
@@ -1793,6 +1824,8 @@ export default {
                 property.expenseMods.push(this.getSkill('abyssManipulation'))
                 property.expenseMods.push(this.getSkill('galacticCommand'))
                 property.expenseMods.push(this.getSkill('intimidation'))
+                
+                property.expenseMods.push(this.achExpense)
             })
 
             this.artefacts.forEach(artefact => {
@@ -1802,6 +1835,8 @@ export default {
                 artefact.expenseMods.push(this.getSkill('abyssManipulation'))
                 artefact.expenseMods.push(this.getSkill('galacticCommand'))
                 artefact.expenseMods.push(this.getSkill('intimidation'))
+                
+                artefact.expenseMods.push(this.achExpense)
             })
             
             this.setCurrentJob('beggar')
@@ -1828,6 +1863,7 @@ export default {
                 this.evils = loadeddata.evils || this.evils
                 this.essences = loadeddata.essences || this.essences
                 this.pauseDelay = loadeddata.pauseDelay || this.pauseDelay
+                this.clickCount = loadeddata.clickCount || this.clickCount
                 
                 this.paused = loadeddata.paused || this.paused
                 this.autoJobEnabled = loadeddata.autoJobEnabled || this.autoJobEnabled
@@ -1879,6 +1915,18 @@ export default {
                         artefact.activated = data.activated || false
                     }
                 })
+                
+                if (loadeddata.achievements) {
+                    loadeddata.achievements.forEach(data => {
+                    
+                        let achievement = this.getAchievement(data.id)
+                        if (achievement) {
+                        
+                            achievement.done = data.done || false
+                            if (achievement.done == true && achievement.apply != null) achievement.apply(this)
+                        }
+                    })
+                }
 
                 let currentJobId = loadeddata.currentJobId || this.currentJob.id
                 this.setCurrentJob(currentJobId)
@@ -1905,6 +1953,7 @@ export default {
                 evils:this.evils,
                 essences:this.essences,
                 pauseDelay:this.pauseDelay,
+                clickCount:this.clickCount,
                 
                 paused:this.paused,
                 autoJobEnabled:this.autoJobEnabled,
@@ -1920,6 +1969,7 @@ export default {
                 skills:[],
                 properties:[],
                 artefacts:[],
+                achievements:[],
                 
                 currentJobId:this.currentJob.id,
                 currentSkillId:this.currentSkill.id,
@@ -1969,6 +2019,16 @@ export default {
                 }
                 
                 saveddata.artefacts.push(temp)
+            })
+            
+            this.achievements.forEach(achievement => {
+            
+                let temp = {
+                    id:achievement.id,
+                    done:achievement.done,
+                }
+                
+                saveddata.achievements.push(temp)
             })
             
             let text = JSON.stringify(saveddata)
@@ -2060,7 +2120,8 @@ export default {
                     if (achievement.done == false) {
                         if (achievement.check(this) == true) {
                             achievement.done = true
-                            achievement.apply(this)
+                            if (achievement.apply != null) achievement.apply(this)
+                            this.showToastAchievement(achievement)
                         }
                     }
                 })
@@ -2175,6 +2236,12 @@ export default {
         
         //-----
         
+        showToastAchievement(achievement) {
+        
+            this.toastAchievement = achievement
+            setTimeout(() => { this.toastAchievement = null }, 3000)
+        },
+        
         setCurrentPage(pageId) { this.currentPage = pageId },
         
         togglePause() { this.paused = !this.paused },
@@ -2256,15 +2323,15 @@ export default {
                 job.unlocked = false
             })
             
-            this.tasks.forEach(task => {
+            this.skills.forEach(skill => {
                 
-                if (task.level > task.bonusLevel) task.bonusLevel = task.level
+                if (skill.level > skill.bonusLevel) skill.bonusLevel = skill.level
                 
-                task.level = 0
-                task.current = 0
-                task.visible = false
-                task.unlocked = false
-                task.excluded = false
+                skill.level = 0
+                skill.current = 0
+                skill.visible = false
+                skill.unlocked = false
+                skill.excluded = false
             })
             
             this.properties.forEach(property => {
@@ -2388,6 +2455,11 @@ export default {
     
     created() {
     
+        window.addEventListener('click', (e) => {
+        
+            this.clickCount += 1
+        })
+        
         window.addEventListener('keypress', (e) => {
             
             if (e.code == 'Space') this.toggleAutoPause()

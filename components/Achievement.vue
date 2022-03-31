@@ -1,11 +1,13 @@
 <template>
     <div class="col-auto">
-        <div class="bg-achievement p-2 position-relative" style="width:48px; width:48px;">
+        <div class="bg-achievement p-2 position-relative" style="width:48px; height:48px;">
             <button type="button" class="position-absolute start-0 btn p-0 border-0" style="top:-8px;" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="~/assets/ui/info.png" width="12px" />
             </button>
             <div class="dropdown-menu lh-1" style="max-width:35%;">
-                <small class="text-light text-shadow">{{ $t('desc_' + achievement.id) }}</small>
+                <div class="mb-1 text-light text-shadow">{{ $t('desc_' + achievement.id) }}</div>
+                <div class="small text-muted text-shadow">{{ $t('check_' + achievement.id) }}</div>
+                <div v-if="achievement.apply" class="mt-1 small text-success text-shadow">{{ $t('bonus_' + achievement.id) }}</div>
             </div>
             <div class="text-muted small text-shadow text-center">{{ $t('word_lvl') }}</div>
             <div class="text-light text-shadow text-center">{{ achievement.level }}</div>
