@@ -1161,6 +1161,22 @@
                         </div>
                     </div>
                     
+                    <div v-if="currentPage == 'stats'" class="pt-4">
+                        <div class="container">
+                            <div class="row">
+                                
+                                <div class="col-12">
+                                    <div class="bg-card pb-2">
+                                        <div class="row align-items-center">
+                                            
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
                 
             </div>
@@ -1646,7 +1662,8 @@ export default {
             
             let timeWarpingSpeed = this.timeWarpingEnabled ? timeWarping.getEffect() + temporalDimension.getEffect() * timeLoop.getEffect() : 1
             
-            let ret = 4 * +!this.paused * +this.isAlive * timeWarpingSpeed * this.achGameSpeed * this.achHappiness
+            let ret = 4 * +!this.paused * +this.isAlive * timeWarpingSpeed * this.achGameSpeed
+            console.log(this.achGameSpeed)
             return ret
         },
 
@@ -1658,7 +1675,7 @@ export default {
             let butler = this.getArtefact('butler')
             let multiverseFragment = this.getArtefact('multiverseFragment')
             
-            let ret = meditation.getEffect() * butler.getEffect() / mindSeize.getEffect() * multiverseFragment.getEffect() * this.currentProperty.getEffect()
+            let ret = meditation.getEffect() * butler.getEffect() / mindSeize.getEffect() * multiverseFragment.getEffect() * this.currentProperty.getEffect() * this.achHappiness
             return ret
         },
         
