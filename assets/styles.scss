@@ -67,7 +67,7 @@ $progress-font-size:                $font-size-base !default;
 
 $dropdown-padding-x:                calc(0.5 * $spacer) !default;
 $dropdown-padding-y:                calc(0.5 * $spacer) !default;
-$dropdown-bg:                       rgba(32, 28, 21, 0.75) !default;
+$dropdown-bg:                       rgba(32, 28, 21, 1) !default;
 
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 

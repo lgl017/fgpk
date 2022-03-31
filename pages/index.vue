@@ -321,7 +321,8 @@
                         </div>
                         <div class="col-auto">
                             <div class="bg-item-desc p-2" style="min-width:150px;">
-                                <div class="mb-1 text-light text-shadow">{{ $t('desc_' + toastAchievement.id) }}</div>
+                                <div class="mb-1 text-light text-shadow">{{ $t('name_' + toastAchievement.id) }}</div>
+                                <div class="mb-1 small text-light text-shadow">{{ $t('desc_' + toastAchievement.id) }}</div>
                                 <div class="small text-muted text-shadow">{{ $t('check_' + toastAchievement.id) }}</div>
                                 <div v-if="toastAchievement.apply" class="mt-1 small text-success text-shadow">{{ $t('bonus_' + toastAchievement.id) }}</div>
                             </div>
@@ -1157,6 +1158,51 @@
                                     <Achievement :achievement="getAchievement('autoSkill')" />
                                     <Achievement :achievement="getAchievement('autoPause')" />
                                 </AchievementRow>
+                                <AchievementRow text="achRow_properties">
+                                    <Achievement :achievement="getAchievement('achTent')" />
+                                    <Achievement :achievement="getAchievement('achHouse')" />
+                                    <Achievement :achievement="getAchievement('achSmallPalace')" />
+                                    <Achievement :achievement="getAchievement('achGrandPalace')" />
+                                    <Achievement :achievement="getAchievement('achTownRuler')" />
+                                    <Achievement :achievement="getAchievement('achNationRuler')" />
+                                    <Achievement :achievement="getAchievement('achVoidUniverse')" />
+                                    <Achievement :achievement="getAchievement('achGalacticThrone')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_artefacts">
+                                    <Achievement :achievement="getAchievement('achBook')" />
+                                    <Achievement :achievement="getAchievement('achButler')" />
+                                    <Achievement :achievement="getAchievement('achObservatory')" />
+                                    <Achievement :achievement="getAchievement('achVoidArmor')" />
+                                    <Achievement :achievement="getAchievement('achCelestialRobe')" />
+                                    <Achievement :achievement="getAchievement('achMultiverseFragment')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_hoarder">
+                                    <Achievement :achievement="getAchievement('hoarder1')" />
+                                    <Achievement :achievement="getAchievement('hoarder2')" />
+                                    <Achievement :achievement="getAchievement('hoarder3')" />
+                                    <Achievement :achievement="getAchievement('hoarder4')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_rebirth1">
+                                    <Achievement :achievement="getAchievement('rebirth11')" />
+                                    <Achievement :achievement="getAchievement('rebirth12')" />
+                                    <Achievement :achievement="getAchievement('rebirth13')" />
+                                    <Achievement :achievement="getAchievement('rebirth14')" />
+                                    <Achievement :achievement="getAchievement('rebirth15')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_rebirth2">
+                                    <Achievement :achievement="getAchievement('rebirth21')" />
+                                    <Achievement :achievement="getAchievement('rebirth22')" />
+                                    <Achievement :achievement="getAchievement('rebirth23')" />
+                                    <Achievement :achievement="getAchievement('rebirth24')" />
+                                    <Achievement :achievement="getAchievement('rebirth25')" />
+                                </AchievementRow>
+                                <AchievementRow text="achRow_rebirth3">
+                                    <Achievement :achievement="getAchievement('rebirth31')" />
+                                    <Achievement :achievement="getAchievement('rebirth32')" />
+                                    <Achievement :achievement="getAchievement('rebirth33')" />
+                                    <Achievement :achievement="getAchievement('rebirth34')" />
+                                    <Achievement :achievement="getAchievement('rebirth35')" />
+                                </AchievementRow>
                             </div>
                         </div>
                     </div>
@@ -1509,20 +1555,20 @@ var achievementData = [
     { id:'coins2', type:'coins', level:2, check:function(state) { return state.coins >= 10000 },                    },
     { id:'coins3', type:'coins', level:3, check:function(state) { return state.coins >= 1000000 },                  },
     { id:'coins4', type:'coins', level:4, check:function(state) { return state.coins >= 10000000000 },              },
-    { id:'coins5', type:'coins', level:5, check:function(state) { return state.coins >= 10000000000000 },           apply:function(state) { state.achExpense.value += -.1 }, },
-    { id:'coins6', type:'coins', level:6, check:function(state) { return state.coins >= 1000000000000000 },         apply:function(state) { state.achExpense.value += -.1 }, },
-    { id:'coins7', type:'coins', level:7, check:function(state) { return state.coins >= 100000000000000000 },       apply:function(state) { state.achExpense.value += -.1 }, },
-    { id:'coins8', type:'coins', level:8, check:function(state) { return state.coins >= 100000000000000000000 },    apply:function(state) { state.achExpense.value += -.1 }, },
-    { id:'coins9', type:'coins', level:9, check:function(state) { return state.coins >= 200000000000000000000000 }, apply:function(state) { state.achExpense.value += -.1 }, },
+    { id:'coins5', type:'coins', level:5, check:function(state) { return state.coins >= 10000000000000 },           apply:function(state) { state.achExpense.value += -.05 }, },
+    { id:'coins6', type:'coins', level:6, check:function(state) { return state.coins >= 1000000000000000 },         apply:function(state) { state.achExpense.value += -.05 }, },
+    { id:'coins7', type:'coins', level:7, check:function(state) { return state.coins >= 100000000000000000 },       apply:function(state) { state.achExpense.value += -.05 }, },
+    { id:'coins8', type:'coins', level:8, check:function(state) { return state.coins >= 100000000000000000000 },    apply:function(state) { state.achExpense.value += -.05 }, },
+    { id:'coins9', type:'coins', level:9, check:function(state) { return state.coins >= 200000000000000000000000 }, apply:function(state) { state.achExpense.value += -.05 }, },
 
     { id:'happiness1', type:'happiness', level:1, check:function(state) { return state.happiness >= 10 },        },
     { id:'happiness2', type:'happiness', level:2, check:function(state) { return state.happiness >= 500 },       },
     { id:'happiness3', type:'happiness', level:3, check:function(state) { return state.happiness >= 10000 },     },
-    { id:'happiness4', type:'happiness', level:4, check:function(state) { return state.happiness >= 100000 },    apply:function(state) { state.achHappiness += .05 }, },
-    { id:'happiness5', type:'happiness', level:5, check:function(state) { return state.happiness >= 1000000 },   apply:function(state) { state.achHappiness += .05 }, },
-    { id:'happiness6', type:'happiness', level:6, check:function(state) { return state.happiness >= 10000000 },  apply:function(state) { state.achHappiness += .05 }, },
-    { id:'happiness7', type:'happiness', level:7, check:function(state) { return state.happiness >= 100000000 }, apply:function(state) { state.achHappiness += .05 }, },
-    { id:'happiness8', type:'happiness', level:8, check:function(state) { return state.happiness >= 300000000 }, apply:function(state) { state.achHappiness += .05 }, },
+    { id:'happiness4', type:'happiness', level:4, check:function(state) { return state.happiness >= 100000 },    apply:function(state) { state.achHappiness += .1 }, },
+    { id:'happiness5', type:'happiness', level:5, check:function(state) { return state.happiness >= 1000000 },   apply:function(state) { state.achHappiness += .1 }, },
+    { id:'happiness6', type:'happiness', level:6, check:function(state) { return state.happiness >= 10000000 },  apply:function(state) { state.achHappiness += .1 }, },
+    { id:'happiness7', type:'happiness', level:7, check:function(state) { return state.happiness >= 100000000 }, apply:function(state) { state.achHappiness += .1 }, },
+    { id:'happiness8', type:'happiness', level:8, check:function(state) { return state.happiness >= 300000000 }, apply:function(state) { state.achHappiness += .1 }, },
 
     { id:'evil1', type:'evil', level:1, check:function(state) { return state.evils >= 1 },           },
     { id:'evil2', type:'evil', level:2, check:function(state) { return state.evils >= 50 },          },
@@ -1546,6 +1592,45 @@ var achievementData = [
     { id:'autoJob',   type:'features', level:1, check:function(state) { return state.years >= 20 || state.rebirthOneCount >= 1 }, },
     { id:'autoSkill', type:'features', level:2, check:function(state) { return state.years >= 20 || state.rebirthOneCount >= 1 }, },
     { id:'autoPause', type:'features', level:3, check:function(state) { return state.getJob('corrupted').unlocked || state.rebirthThreeCount > 0 }, },
+
+    { id:'achTent',              type:'properties', level:1, check:function(state) { return state.getItem('tent').unlocked },           },
+    { id:'achHouse',             type:'properties', level:2, check:function(state) { return state.getItem('house').unlocked },          },
+    { id:'achSmallPalace',       type:'properties', level:3, check:function(state) { return state.getItem('smallPalace').unlocked },    },
+    { id:'achGrandPalace',       type:'properties', level:4, check:function(state) { return state.getItem('grandPalace').unlocked },    },
+    { id:'achTownRuler',         type:'properties', level:5, check:function(state) { return state.getItem('townRuler').unlocked },      },
+    { id:'achNationRuler',       type:'properties', level:6, check:function(state) { return state.getItem('nationRuler').unlocked },    apply:function(state) { state.achLifespan += .1 }, },
+    { id:'achVoidUniverse',      type:'properties', level:7, check:function(state) { return state.getItem('voidUniverse').unlocked },   apply:function(state) { state.achLifespan += .1 }, },
+    { id:'achGalacticThrone',    type:'properties', level:8, check:function(state) { return state.getItem('galacticThrone').unlocked }, apply:function(state) { state.achLifespan += .15 }, },
+
+    { id:'achBook',               type:'artefacts', level:1, check:function(state) { return state.getItem('book').unlocked },               },
+    { id:'achButler',             type:'artefacts', level:2, check:function(state) { return state.getItem('butler').unlocked },             },
+    { id:'achObservatory',        type:'artefacts', level:3, check:function(state) { return state.getItem('observatory').unlocked },        },
+    { id:'achVoidArmor',          type:'artefacts', level:4, check:function(state) { return state.getItem('voidArmor').unlocked },          },
+    { id:'achCelestialRobe',      type:'artefacts', level:5, check:function(state) { return state.getItem('celestialRobe').unlocked },      },
+    { id:'achMultiverseFragment', type:'artefacts', level:6, check:function(state) { return state.getItem('multiverseFragment').unlocked }, },
+
+    { id:'hoarder1', type:'hoarder', level:1, check:function(state) { return state.activeArtefactCount >= 5 },  },
+    { id:'hoarder2', type:'hoarder', level:2, check:function(state) { return state.activeArtefactCount >= 10 }, apply:function(state) { state.achHappiness += .1 }, },
+    { id:'hoarder3', type:'hoarder', level:3, check:function(state) { return state.activeArtefactCount >= 14 }, apply:function(state) { state.achHappiness += .15 }, },
+    { id:'hoarder4', type:'hoarder', level:4, check:function(state) { return state.activeArtefactCount >= 20 }, apply:function(state) { state.achHappiness += .25 }, },
+
+    { id:'rebirth11', type:'rebirth1', level:1, check:function(state) { return state.rebirthOneCount >= 1  }, },
+    { id:'rebirth12', type:'rebirth1', level:2, check:function(state) { return state.rebirthOneCount >= 5  }, },
+    { id:'rebirth13', type:'rebirth1', level:3, check:function(state) { return state.rebirthOneCount >= 10 }, apply:function(state) { state.startingDays = 20 * 365 }, },
+    { id:'rebirth14', type:'rebirth1', level:4, check:function(state) { return state.rebirthOneCount >= 25 }, apply:function(state) { state.startingDays = 30 * 365 }, },
+    { id:'rebirth15', type:'rebirth1', level:5, check:function(state) { return state.rebirthOneCount >= 50 }, apply:function(state) { state.startingDays = 40 * 365 }, },
+
+    { id:'rebirth21', type:'rebirth2', level:1, check:function(state) { return state.rebirthTwoCount >= 1  }, },
+    { id:'rebirth22', type:'rebirth2', level:2, check:function(state) { return state.rebirthTwoCount >= 5  }, apply:function(state) { state.achEvilGain += .25 }, },
+    { id:'rebirth23', type:'rebirth2', level:3, check:function(state) { return state.rebirthTwoCount >= 10 }, apply:function(state) { state.achEvilGain += .25 }, },
+    { id:'rebirth24', type:'rebirth2', level:4, check:function(state) { return state.rebirthTwoCount >= 25 }, apply:function(state) { state.achEvilGain += .25 }, },
+    { id:'rebirth25', type:'rebirth2', level:5, check:function(state) { return state.rebirthTwoCount >= 50 }, apply:function(state) { state.achEvilGain += .25 }, },
+
+    { id:'rebirth31', type:'rebirth3', level:1, check:function(state) { return state.rebirthThreeCount >= 1  }, },
+    { id:'rebirth32', type:'rebirth3', level:2, check:function(state) { return state.rebirthThreeCount >= 3  }, apply:function(state) { state.achEssenceGain += .25 }, },
+    { id:'rebirth33', type:'rebirth3', level:3, check:function(state) { return state.rebirthThreeCount >= 5  }, apply:function(state) { state.achEssenceGain += .25 }, },
+    { id:'rebirth34', type:'rebirth3', level:4, check:function(state) { return state.rebirthThreeCount >= 10 }, apply:function(state) { state.achEssenceGain += .25 }, },
+    { id:'rebirth35', type:'rebirth3', level:5, check:function(state) { return state.rebirthThreeCount >= 15 }, apply:function(state) { state.achEssenceGain += .25 }, },
 ]
 
 class Achievement {
@@ -1591,12 +1676,13 @@ export default {
             properties:[],
             achievements:[],
             
-            days:15 * 365,
+            days:0,
             coins:0,
             evils:0,
             essences:0,
             pauseDelay:1000,
             clickCount:0,
+            startingDays:15 * 365,
             
             paused:false,
             autoJobEnabled:false,
@@ -1617,6 +1703,7 @@ export default {
             achHappiness:1.0,
             achEvilGain:1.0,
             achEssenceGain:1.0,
+            achLifespan:1.0,
         }
     },
     
@@ -1634,7 +1721,7 @@ export default {
             let cosmicLongevity = this.getSkill('cosmicLongevity')
             let higherDimensions = this.getSkill('higherDimensions')
             
-            let ret = (365 * 70) * lifeEssence.getEffect() * astralBody.getEffect() * ceaselessAbyss.getEffect() * cosmicLongevity.getEffect() * higherDimensions.getEffect()
+            let ret = (365 * 70) * lifeEssence.getEffect() * astralBody.getEffect() * ceaselessAbyss.getEffect() * cosmicLongevity.getEffect() * higherDimensions.getEffect() * this.achLifespan
             return ret
         },
         
@@ -1715,6 +1802,13 @@ export default {
             let essenceCollector = this.getSkill('essenceCollector')
             
             let ret = yinYang.getEffect() * essenceCollector.getEffect() * this.achEssenceGain
+            return ret
+        },
+        
+        activeArtefactCount() {
+            
+            let ret = 0
+            this.artefacts.forEach(artefact => { if (artefact.activated == true) ret += 1 })
             return ret
         },
     },
@@ -1854,6 +1948,8 @@ export default {
                 
                 artefact.expenseMods.push(this.achExpense)
             })
+            
+            this.days = this.startingDays
             
             this.setCurrentJob('beggar')
             this.setCurrentSkill('concentration')            
@@ -2326,7 +2422,7 @@ export default {
         
             this.currentPage = 'jobs'
             
-            this.days = 15 * 365
+            this.days = this.startingDays
             this.coins = 0
             
             this.jobs.forEach(job => {
