@@ -419,11 +419,12 @@ export default {
     'check_happiness7': 'Happiness >= 100 000 000',
     'check_happiness8': 'Happiness >= 300 000 000',
 
-    'bonus_happiness4': 'Happiness +5%',
-    'bonus_happiness5': 'Happiness +5%',
-    'bonus_happiness6': 'Happiness +5%',
-    'bonus_happiness7': 'Happiness +5%',
-    'bonus_happiness8': 'Happiness +5%',
+    'bonus_happiness3': 'Happiness +5%',
+    'bonus_happiness4': 'Happiness +10%',
+    'bonus_happiness5': 'Happiness +15%',
+    'bonus_happiness6': 'Happiness +20%',
+    'bonus_happiness7': 'Happiness +25%',
+    'bonus_happiness8': 'Happiness +50%',
 
     'name_evil1': 'Evil',
     'name_evil2': 'Evil 2',
@@ -650,4 +651,8 @@ export default {
     'bonus_rebirth33': 'Essence gain +25%',
     'bonus_rebirth34': 'Essence gain +25%',
     'bonus_rebirth35': 'Essence gain +25%',
+    
+    'stats_gameTime': 'Game time',
+    'stats_rebirth1Title': 'Touch the eye',
+    'stats_howManyTimes': 'How many times did you use it',
 }

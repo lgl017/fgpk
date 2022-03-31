@@ -603,8 +603,8 @@
                             <JobUnlocked v-if="getJob('acallaris').unlocked == true" bg="listbg4" :job="getJob('acallaris')" :gain="getTaskGain(getJob('acallaris'))" :isActive="isJobActive('acallaris')" @activate="setCurrentJob('acallaris')" />
                             
                             <TaskLocked v-if="getJob('oneAboveAll').visible == true && getJob('oneAboveAll').unlocked == false" :task="getJob('oneAboveAll')">
-                                <Requirement :req="getJob('oneAboveAll').reqs[0]" :task="getJob('acallaris')" />
-                                <Requirement :req="getJob('oneAboveAll').reqs[1]" :task="getSkill('meditation')" />
+                                <Requirement :req="getJob('oneAboveAll').reqs[0]" :task="getSkill('meditation')" />
+                                <Requirement :req="getJob('oneAboveAll').reqs[1]" :task="getJob('acallaris')" />
                             </TaskLocked>
                             <JobUnlocked v-if="getJob('oneAboveAll').unlocked == true" bg="listbg4" :job="getJob('oneAboveAll')" :gain="getTaskGain(getJob('oneAboveAll'))" :isActive="isJobActive('oneAboveAll')" @activate="setCurrentJob('oneAboveAll')" />
                             
@@ -1226,16 +1226,24 @@
                     
                     <div v-if="currentPage == 'stats'" class="pt-4">
                         <div class="container">
-                            <div class="row">
-                                
-                                <div class="col-12">
-                                    <div class="bg-card pb-2">
-                                        <div class="row align-items-center">
-                                            
+                            <div class="row g-3">
+                                <div class="col-12 mt-0">
+                                    <div class="bg-card pb-2 pt-1">
+                                        <div class="px-0 row align-items-center">
+                                            <div class="col-auto text-muted text-shadow">{{ $t('stats_gameTime') }}</div>
+                                            <div class="col text-light text-shadow"><FormatTime :value="(new Date().getTime() - stats.startedDate) / 1000" /></div>
                                         </div>                                        
                                     </div>
                                 </div>
-                            
+                                <div class="col-12">
+                                    <div class="mb-2 h5 text-light text-shadow">{{ $t('stats_rebirth1Title') }}</div>
+                                    <div class="bg-card pb-2 pt-1">
+                                        <div class="px-0 row align-items-center">
+                                            <div class="col-auto text-muted text-shadow">{{ $t('stats_howManyTimes') }}</div>
+                                            <div class="col text-light text-shadow">{{ rebirthOneCount.toLocaleString() }}</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1583,12 +1591,12 @@ var achievementData = [
 
     { id:'happiness1', type:'happiness', level:1, check:function(state) { return state.happiness >= 10 },        },
     { id:'happiness2', type:'happiness', level:2, check:function(state) { return state.happiness >= 500 },       },
-    { id:'happiness3', type:'happiness', level:3, check:function(state) { return state.happiness >= 10000 },     },
-    { id:'happiness4', type:'happiness', level:4, check:function(state) { return state.happiness >= 100000 },    apply:function(state) { state.achHappiness += .1 }, },
-    { id:'happiness5', type:'happiness', level:5, check:function(state) { return state.happiness >= 1000000 },   apply:function(state) { state.achHappiness += .1 }, },
-    { id:'happiness6', type:'happiness', level:6, check:function(state) { return state.happiness >= 10000000 },  apply:function(state) { state.achHappiness += .1 }, },
-    { id:'happiness7', type:'happiness', level:7, check:function(state) { return state.happiness >= 100000000 }, apply:function(state) { state.achHappiness += .1 }, },
-    { id:'happiness8', type:'happiness', level:8, check:function(state) { return state.happiness >= 300000000 }, apply:function(state) { state.achHappiness += .1 }, },
+    { id:'happiness3', type:'happiness', level:3, check:function(state) { return state.happiness >= 10000 },     apply:function(state) { state.achHappiness += .05 }, },
+    { id:'happiness4', type:'happiness', level:4, check:function(state) { return state.happiness >= 100000 },    apply:function(state) { state.achHappiness += .10 }, },
+    { id:'happiness5', type:'happiness', level:5, check:function(state) { return state.happiness >= 1000000 },   apply:function(state) { state.achHappiness += .15 }, },
+    { id:'happiness6', type:'happiness', level:6, check:function(state) { return state.happiness >= 10000000 },  apply:function(state) { state.achHappiness += .20 }, },
+    { id:'happiness7', type:'happiness', level:7, check:function(state) { return state.happiness >= 100000000 }, apply:function(state) { state.achHappiness += .25 }, },
+    { id:'happiness8', type:'happiness', level:8, check:function(state) { return state.happiness >= 300000000 }, apply:function(state) { state.achHappiness += .50 }, },
 
     { id:'evil1', type:'evil', level:1, check:function(state) { return state.evils >= 1 },           },
     { id:'evil2', type:'evil', level:2, check:function(state) { return state.evils >= 50 },          },
@@ -1725,6 +1733,11 @@ export default {
             achEvilGain:1.0,
             achEssenceGain:1.0,
             achLifespan:1.0,
+            
+            stats:{
+            
+                startedDate:new Date().getTime(),
+            },
         }
     },
     
@@ -2008,6 +2021,8 @@ export default {
                 this.rebirthTwoCount = loadeddata.rebirthTwoCount || this.rebirthTwoCount
                 this.rebirthThreeCount = loadeddata.rebirthThreeCount || this.rebirthThreeCount
                 
+                this.stats = loadeddata.stats || this.stats
+                
                 loadeddata.jobs.forEach(data => {
                 
                     let job = this.getJob(data.id)
@@ -2097,6 +2112,8 @@ export default {
                 rebirthOneCount:this.rebirthOneCount,
                 rebirthTwoCount:this.rebirthTwoCount,
                 rebirthThreeCount:this.rebirthThreeCount,
+                
+                stats:this.stats,
                 
                 jobs:[],
                 skills:[],
