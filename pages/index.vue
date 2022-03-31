@@ -1509,11 +1509,11 @@ var achievementData = [
     { id:'coins2', type:'coins', level:2, check:function(state) { return state.coins >= 10000 },                    },
     { id:'coins3', type:'coins', level:3, check:function(state) { return state.coins >= 1000000 },                  },
     { id:'coins4', type:'coins', level:4, check:function(state) { return state.coins >= 10000000000 },              },
-    { id:'coins5', type:'coins', level:5, check:function(state) { return state.coins >= 10000000000000 },           apply:function(state) { state.achExpense.value += .1 }, },
-    { id:'coins6', type:'coins', level:6, check:function(state) { return state.coins >= 1000000000000000 },         apply:function(state) { state.achExpense.value += .1 }, },
-    { id:'coins7', type:'coins', level:7, check:function(state) { return state.coins >= 100000000000000000 },       apply:function(state) { state.achExpense.value += .1 }, },
-    { id:'coins8', type:'coins', level:8, check:function(state) { return state.coins >= 100000000000000000000 },    apply:function(state) { state.achExpense.value += .1 }, },
-    { id:'coins9', type:'coins', level:9, check:function(state) { return state.coins >= 200000000000000000000000 }, apply:function(state) { state.achExpense.value += .1 }, },
+    { id:'coins5', type:'coins', level:5, check:function(state) { return state.coins >= 10000000000000 },           apply:function(state) { state.achExpense.value += -.1 }, },
+    { id:'coins6', type:'coins', level:6, check:function(state) { return state.coins >= 1000000000000000 },         apply:function(state) { state.achExpense.value += -.1 }, },
+    { id:'coins7', type:'coins', level:7, check:function(state) { return state.coins >= 100000000000000000 },       apply:function(state) { state.achExpense.value += -.1 }, },
+    { id:'coins8', type:'coins', level:8, check:function(state) { return state.coins >= 100000000000000000000 },    apply:function(state) { state.achExpense.value += -.1 }, },
+    { id:'coins9', type:'coins', level:9, check:function(state) { return state.coins >= 200000000000000000000000 }, apply:function(state) { state.achExpense.value += -.1 }, },
 
     { id:'happiness1', type:'happiness', level:1, check:function(state) { return state.happiness >= 10 },        },
     { id:'happiness2', type:'happiness', level:2, check:function(state) { return state.happiness >= 500 },       },
@@ -1657,13 +1657,12 @@ export default {
         gameSpeed: function() {
         
             let timeLoop = this.getSkill('timeLoop')
-            let timeWarping = this.getSkill['timeWarping']
+            let timeWarping = this.getSkill('timeWarping')
             let temporalDimension = this.getSkill('temporalDimension')
-            
+                        
             let timeWarpingSpeed = this.timeWarpingEnabled ? timeWarping.getEffect() + temporalDimension.getEffect() * timeLoop.getEffect() : 1
             
             let ret = 4 * +!this.paused * +this.isAlive * timeWarpingSpeed * this.achGameSpeed
-            console.log(this.achGameSpeed)
             return ret
         },
 
