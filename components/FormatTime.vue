@@ -13,6 +13,7 @@ export default {
         
             let val = this.value
             
+            if (val == 0) return '00:00:00'
             if (val < 1) return '1s >'
             
             let d = Math.floor(val / (3600 * 24))

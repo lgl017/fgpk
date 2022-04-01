@@ -320,7 +320,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <div class="bg-item-desc p-2" style="min-width:150px;">
+                            <div class="bg-item-desc py-2 px-4" style="min-width:15rem;">
                                 <div class="mb-1 text-light text-shadow">{{ $t('name_' + toastAchievement.id) }}</div>
                                 <div class="mb-1 small text-light text-shadow">{{ $t('desc_' + toastAchievement.id) }}</div>
                                 <div class="small text-muted text-shadow">{{ $t('check_' + toastAchievement.id) }}</div>
@@ -836,12 +836,12 @@
                             <TaskLocked v-if="getSkill('higherDimensions').visible == true && getSkill('higherDimensions').unlocked == false" :task="getSkill('higherDimensions')">
                                 <EvilRequirement :req="10e3" :evils="evils" />
                             </TaskLocked>
-                            <SkillUnlocked v-if="getSkill('higherDimensions').unlocked == true" bg="listbg5" :skill="getSkill('higherDimensions')" :effectId="'lifespan'" :gain="getTaskGain(getSkill('higherDimensions'))" :isActive="isSkillActive('higherDimensions')" @activate="setCurrentSkill('higherDimensions')" />
+                            <SkillUnlocked v-if="getSkill('higherDimensions').unlocked == true" bg="listbg2" :skill="getSkill('higherDimensions')" :effectId="'lifespan'" :gain="getTaskGain(getSkill('higherDimensions'))" :isActive="isSkillActive('higherDimensions')" @activate="setCurrentSkill('higherDimensions')" />
                             
                             <TaskLocked v-if="getSkill('epiphany').visible == true && getSkill('epiphany').unlocked == false" :task="getSkill('epiphany')">
                                 <EvilRequirement :req="30e3" :evils="evils" />
                             </TaskLocked>
-                            <SkillUnlocked v-if="getSkill('epiphany').unlocked == true" bg="listbg5" :skill="getSkill('epiphany')" :effectId="'councilSpeed'" :gain="getTaskGain(getSkill('epiphany'))" :isActive="isSkillActive('epiphany')" @activate="setCurrentSkill('epiphany')" />
+                            <SkillUnlocked v-if="getSkill('epiphany').unlocked == true" bg="listbg2" :skill="getSkill('epiphany')" :effectId="'councilSpeed'" :gain="getTaskGain(getSkill('epiphany'))" :isActive="isSkillActive('epiphany')" @activate="setCurrentSkill('epiphany')" />
                             
                         </Title>
                         
@@ -1229,19 +1229,45 @@
                             <div class="row g-3">
                                 <div class="col-12 mt-0">
                                     <div class="bg-card pb-2 pt-1">
-                                        <div class="px-0 row align-items-center">
+                                        <div class="px-3 py-1 row align-items-center">
                                             <div class="col-auto text-muted text-shadow">{{ $t('stats_gameTime') }}</div>
                                             <div class="col text-light text-shadow"><FormatTime :value="(new Date().getTime() - stats.startedDate) / 1000" /></div>
                                         </div>                                        
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="mb-2 h5 text-light text-shadow">{{ $t('stats_rebirth1Title') }}</div>
-                                    <div class="bg-card pb-2 pt-1">
-                                        <div class="px-0 row align-items-center">
-                                            <div class="col-auto text-muted text-shadow">{{ $t('stats_howManyTimes') }}</div>
-                                            <div class="col text-light text-shadow">{{ rebirthOneCount.toLocaleString() }}</div>
-                                        </div>
+                                    <div class="mb-2 h5 text-light text-shadow">{{ $t('stats_rebirth') }}</div>
+                                    <div class="bg-card px-3 pb-3">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th class="text-muted text-shadow text-end" width="15%">{{ $t('word_count') }}</th>
+                                                    <th class="text-muted text-shadow text-end" width="15%">{{ $t('word_longest') }}</th>
+                                                    <th class="text-muted text-shadow text-end" width="15%">{{ $t('word_current') }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-muted text-shadow">{{ $t('name_rebirth1') }}</td>
+                                                    <td class="text-light text-shadow text-end">{{ rebirthOneCount.toLocaleString() }}</td>
+                                                    <td class="text-light text-shadow text-end"><FormatTime :value="stats.rebirth1_longest" /></td>
+                                                    <td class="text-light text-shadow text-end"><FormatTime :value="(new Date().getTime() - stats.rebirth1_lastTime) / 1000" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-muted text-shadow">{{ $t('name_rebirth2') }}</td>
+                                                    <td class="text-light text-shadow text-end">{{ rebirthTwoCount.toLocaleString() }}</td>
+                                                    <td class="text-light text-shadow text-end"><FormatTime :value="stats.rebirth2_longest" /></td>
+                                                    <td class="text-light text-shadow text-end"><FormatTime :value="(new Date().getTime() - stats.rebirth2_lastTime) / 1000" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-muted text-shadow">{{ $t('name_rebirth3') }}</td>
+                                                    <td class="text-light text-shadow text-end">{{ rebirthThreeCount.toLocaleString() }}</td>
+                                                    <td class="text-light text-shadow text-end"><FormatTime :value="stats.rebirth3_longest" /></td>
+                                                    <td class="text-light text-shadow text-end"><FormatTime :value="(new Date().getTime() - stats.rebirth3_lastTime) / 1000" /></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -1737,6 +1763,13 @@ export default {
             stats:{
             
                 startedDate:new Date().getTime(),
+                
+                rebirth1_longest:0,
+                rebirth1_lastTime:new Date().getTime(),
+                rebirth2_longest:0,
+                rebirth2_lastTime:new Date().getTime(),
+                rebirth3_longest:0,
+                rebirth3_lastTime:new Date().getTime(),
             },
         }
     },
@@ -2021,7 +2054,17 @@ export default {
                 this.rebirthTwoCount = loadeddata.rebirthTwoCount || this.rebirthTwoCount
                 this.rebirthThreeCount = loadeddata.rebirthThreeCount || this.rebirthThreeCount
                 
-                this.stats = loadeddata.stats || this.stats
+                if (loadeddata.stats) {
+                    
+                    this.stats.startedDate = loadeddata.stats.startedDate || this.stats.startedDate
+                    
+                    this.stats.rebirth1_longest = loadeddata.stats.rebirth1_longest || this.stats.rebirth1_longest
+                    this.stats.rebirth1_lastTime = loadeddata.stats.rebirth1_lastTime || this.stats.rebirth1_lastTime
+                    this.stats.rebirth2_longest = loadeddata.stats.rebirth2_longest || this.stats.rebirth2_longest
+                    this.stats.rebirth2_lastTime = loadeddata.stats.rebirth2_lastTime || this.stats.rebirth2_lastTime
+                    this.stats.rebirth3_longest = loadeddata.stats.rebirth3_longest || this.stats.rebirth3_longest
+                    this.stats.rebirth3_lastTime = loadeddata.stats.rebirth3_lastTime || this.stats.rebirth3_lastTime
+                }
                 
                 loadeddata.jobs.forEach(data => {
                 
@@ -2427,6 +2470,12 @@ export default {
         rebirthOne() {
             
             this.rebirthOneCount += 1
+            
+            let temp = (new Date().getTime() - this.stats.rebirth1_lastTime) / 1000
+            if (temp > this.stats.rebirth1_longest) this.stats.rebirth1_longest = temp
+            
+            this.stats.rebirth1_lastTime = new Date().getTime()
+             
             this.reset()
         },
         
@@ -2435,6 +2484,12 @@ export default {
             this.evils += this.evilGain
             
             this.rebirthTwoCount += 1
+            
+            let temp = (new Date().getTime() - this.stats.rebirth2_lastTime) / 1000
+            if (temp > this.stats.rebirth2_longest) this.stats.rebirth2_longest = temp
+            
+            this.stats.rebirth2_lastTime = new Date().getTime()
+            
             this.reset()
             
             this.jobs.forEach(job => { job.bonusLevel = 0 })
@@ -2450,6 +2505,12 @@ export default {
             let recallEffect = cosmicRecollection.getEffect()
             
             this.rebirthThreeCount += 1
+            
+            let temp = (new Date().getTime() - this.stats.rebirth3_lastTime) / 1000
+            if (temp > this.stats.rebirth3_longest) this.stats.rebirth3_longest = temp
+            
+            this.stats.rebirth3_lastTime = new Date().getTime()
+            
             this.reset()
             
             this.jobs.forEach(job => { job.bonusLevel = Math.floor(recallEffect * job.bonusLevel) })

@@ -5,6 +5,9 @@ export default {
     'word_lvl': 'Lvl',
     'word_days': 'd',
     'word_autoExclude': 'Skip',
+    'word_count': 'Count',
+    'word_longest': 'Longest',
+    'word_current': 'Current',
     
     'death_title': 'Age has caught up to you',
     'death_text': 'Your age has met your lifespan, use the amulet to rebirth before you pass away',
@@ -152,6 +155,10 @@ export default {
     'name_celestialRobe': 'Celestial Robe',
     'name_universeFragment': 'Universe Fragment',
     'name_multiverseFragment': 'Multiverse Fragment',
+    
+    'name_rebirth1': 'Touch the eye',
+    'name_rebirth2': 'Embrace Evil',
+    'name_rebirth3': 'Transcension',
     
     'desc_beggar': 'Struggle day and night for a couple of copper coins. It feels like you are at the brink of death each day.',
     'desc_farmer': 'Plow the fields and grow the crops. It\'s not much but it\'s honest work.',    
@@ -653,6 +660,6 @@ export default {
     'bonus_rebirth35': 'Essence gain +25%',
     
     'stats_gameTime': 'Game time',
-    'stats_rebirth1Title': 'Touch the eye',
+    'stats_rebirth': 'Rebirth',
     'stats_howManyTimes': 'How many times did you use it',
 }

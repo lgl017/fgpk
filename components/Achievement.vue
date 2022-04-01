@@ -4,7 +4,7 @@
             <button type="button" class="position-absolute start-0 btn p-0 border-0" style="top:-8px;" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="~/assets/ui/info.png" width="12px" />
             </button>
-            <div class="dropdown-menu lh-1" style="max-width:35%;">
+            <div class="dropdown-menu lh-1" style="min-width:15rem;">
                 <div class="mb-1 text-light text-shadow">{{ $t('name_' + achievement.id) }}</div>
                 <div class="mb-1 small text-light text-shadow">{{ $t('desc_' + achievement.id) }}</div>
                 <div class="small text-muted text-shadow">{{ $t('check_' + achievement.id) }}</div>

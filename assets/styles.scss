@@ -46,6 +46,9 @@ $headings-margin-bottom:            0 !default;
 
 // inputs
 
+$input-bg:                          #373126 !default;
+$input-color:                       $light !default;
+
 $input-border-color:                $border-color !default;
 $input-focus-border-color:          $border-color !default;
 
@@ -119,6 +122,9 @@ body { width:100%; height:100%; overflow:hidden; }
 .row { width:100%; margin:0; padding:0 calc(0.5 * $spacer); }
 
 .btn-check:focus + .btn-outline-primary, .btn-outline-primary:focus { box-shadow:none !important; }
+
+.table { margin-bottom: 0; }
+.table > :not(caption) > * > * { border-color: $border-color; }
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -206,7 +212,7 @@ body { background-image:url('~@/assets/ui/background.png'); background-size:cove
 }
 
 .bg-card {
-    border: 1px solid; border-image: url('~@/assets/ui/card.png') 90 / 125 / 0px stretch;
+    border: 1px solid; border-image: url('~@/assets/ui/card.png') 90 / 175 / 0px stretch;
 }
 
 .bg-box { background-image:url('~@/assets/ui/box.png'); background-size:cover; }
@@ -221,7 +227,7 @@ body { background-image:url('~@/assets/ui/background.png'); background-size:cove
 
 .bg-item-desc {
     padding:.35rem .75rem .45rem;
-    border: 1px solid; border-image: url('~@/assets/ui/itemDesc.png') 50 / 55 / 0px stretch;
+    border: 1px solid; border-image: url('~@/assets/ui/itemDesc.png') 35 / 75 / 0px stretch;
 }
 
 .bg-rebirth {
