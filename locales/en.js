@@ -1,5 +1,6 @@
 export default {
     
+    'screenLoading_name': 'FG Progress Knight',
     'screenLoading_text': 'Loading...',
     
     'word_lvl': 'Lvl',

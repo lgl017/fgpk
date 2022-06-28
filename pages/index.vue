@@ -5,7 +5,7 @@
             <div class="position-absolute" style="top:-55px; left:calc(50% - 25px);"><img src="~/assets/logo.png" width="50px" /></div>
             <div class="mt-2 container">
                 <div class="row justify-content-center">
-                    <div class="col-auto text-center"><span class="h3 fw-bold text-light text-shadow">FG Progress Knight</span></div>
+                    <div class="col-auto text-center"><span class="h3 fw-bold text-light text-shadow">{{ $t('screenLoading_name') }}</span></div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-auto"><span class="flicker text-light text-shadow">{{ $t('screenLoading_text') }}</span></div>

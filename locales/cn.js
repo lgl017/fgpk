@@ -1,5 +1,6 @@
 export default {
     
+    'screenLoading_name': 'FG骑士进度条',
     'screenLoading_text': '加载中...',
     
     'word_lvl': '等级',
