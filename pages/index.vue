@@ -213,6 +213,28 @@
                     <div v-if="years >= 20 || rebirthOneCount >= 1" class="container">
                         <div class="row align-items-baseline">
                             <div class="col">
+                                <span class="h5 text-light text-shadow">{{ $t('left_currentJobCat') }}</span>
+                            </div>
+                            <div class="col-auto small">
+                                <span class="ms-3 text-white text-shadow">{{ $t('name_' + currentJob.cat) }}</span>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-auto pe-0">
+                                <button type="button" class="btn p-0 border-0" @click="toggleAutoJobCat()">
+                                    <img v-if="autoJobCatEnabled == false" src="~/assets/ui/toggleOff.png" width="16px" />
+                                    <img v-if="autoJobCatEnabled == true" src="~/assets/ui/toggleOn.png" width="16px" />
+                                </button>
+                            </div>
+                            <div class="col small">
+                                <span class="text-muted text-shadow">{{ $t('left_autoJobCat') }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="years >= 20 || rebirthOneCount >= 1" class="container">
+                        <div class="row align-items-baseline">
+                            <div class="col">
                                 <span class="h5 text-light text-shadow">{{ $t('left_currentSkill') }}</span>
                             </div>
                             <div class="col-auto small">
@@ -232,6 +254,20 @@
                             <div class="col-auto small">
                                 <span class="text-muted text-shadow">{{ $t('left_lvl') }}</span>
                                 <span class="text-muted text-shadow"><FormatNumber :value="currentSkill.level" /></span>
+                            </div>
+                        </div>
+                    </div>
+
+					<div v-if="years >= 20 || rebirthOneCount >= 1" class="container">
+                        <div class="row align-items-center">
+                            <div class="col-auto pe-0">
+                                <button type="button" class="btn p-0 border-0" @click="toggleAutoShop()">
+                                    <img v-if="autoShopEnabled == false" src="~/assets/ui/toggleOff.png" width="16px" />
+                                    <img v-if="autoShopEnabled == true" src="~/assets/ui/toggleOn.png" width="16px" />
+                                </button>
+                            </div>
+                            <div class="col small">
+                                <span class="text-muted text-shadow">{{ $t('left_autoShop') }}</span>
                             </div>
                         </div>
                     </div>
@@ -1198,6 +1234,8 @@
                                 <AchievementRow text="achRow_features">
                                     <Achievement :achievement="getAchievement('autoJob')" />
                                     <Achievement :achievement="getAchievement('autoSkill')" />
+                                    <Achievement :achievement="getAchievement('autoJobCat')" />
+                                    <Achievement :achievement="getAchievement('autoShop')" />
                                     <Achievement :achievement="getAchievement('autoPause')" />
                                 </AchievementRow>
                                 <AchievementRow text="achRow_properties">
@@ -1679,7 +1717,9 @@ var achievementData = [
 
     { id:'autoJob',   type:'features', level:1, check:function(state) { return state.years >= 20 || state.rebirthOneCount >= 1 }, },
     { id:'autoSkill', type:'features', level:2, check:function(state) { return state.years >= 20 || state.rebirthOneCount >= 1 }, },
-    { id:'autoPause', type:'features', level:3, check:function(state) { return state.getJob('corrupted').unlocked || state.rebirthThreeCount > 0 }, },
+    { id:'autoJobCat',type:'features', level:3, check:function(state) { return state.years >= 20 || state.rebirthOneCount >= 1 }, },
+    { id:'autoShop',  type:'features', level:4, check:function(state) { return state.years >= 20 || state.rebirthOneCount >= 1 }, },
+    { id:'autoPause', type:'features', level:5, check:function(state) { return state.getJob('corrupted').unlocked || state.rebirthThreeCount > 0 }, },
 
     { id:'achTent',              type:'properties', level:1, check:function(state) { return state.getItem('tent').unlocked },              },
     { id:'achHouse',             type:'properties', level:2, check:function(state) { return state.getItem('house').unlocked },             },
@@ -1775,8 +1815,10 @@ export default {
             
             paused:false,
             autoJobEnabled:false,
+            autoJobCatEnabled:false,
             autoSkillEnabled:false,
             autoPauseEnabled:false,
+            autoShopEnabled:false,
             timeWarpingEnabled:false,
             
             currentJob:null,
@@ -2089,8 +2131,10 @@ export default {
                 
                 this.paused = loadeddata.paused || this.paused
                 this.autoJobEnabled = loadeddata.autoJobEnabled || this.autoJobEnabled
+                this.autoJobCatEnabled = loadeddata.autoJobCatEnabled || this.autoJobCatEnabled
                 this.autoSkillEnabled = loadeddata.autoSkillEnabled || this.autoSkillEnabled
                 this.autoPauseEnabled = loadeddata.autoPauseEnabled || this.autoPauseEnabled
+                this.autoShopEnabled = loadeddata.autoShopEnabled || this.autoShopEnabled
                 this.timeWarpingEnabled = loadeddata.timeWarpingEnabled || this.timeWarpingEnabled
                 
                 this.rebirthOneCount = loadeddata.rebirthOneCount || this.rebirthOneCount
@@ -2191,8 +2235,10 @@ export default {
                 
                 paused:this.paused,
                 autoJobEnabled:this.autoJobEnabled,
+                autoJobCatEnabled:this.autoJobCatEnabled,
                 autoSkillEnabled:this.autoSkillEnabled,
                 autoPauseEnabled:this.autoPauseEnabled,
+                autoShopEnabled:this.autoShopEnabled,
                 timeWarpingEnabled:this.timeWarpingEnabled,
                 
                 rebirthOneCount:this.rebirthOneCount,
@@ -2312,10 +2358,14 @@ export default {
                 if ((this.days - gainDays) < (this.pauseDelay * 365) && this.days > (this.pauseDelay * 365) && this.autoPauseEnabled == true) this.paused = true
 
                 if (this.autoJobEnabled) {
-                
-                    let index = this.jobs.findIndex(job => job.id == this.currentJob.id)                    
-                    let tempItem = this.jobs[index + 1]
-                    if (tempItem && tempItem.cat == this.currentJob.cat && tempItem.unlocked == true) this.currentJob = tempItem
+					if (this.autoJobCatEnabled) {
+						let jobs = this.jobs.filter(job => job.unlocked == true).reverse();
+						if (jobs[0] && jobs[0].id != this.currentJob.id) this.currentJob = jobs[0];
+					} else {
+						let index = this.jobs.findIndex(job => job.id == this.currentJob.id)                    
+						let tempItem = this.jobs[index + 1]
+						if (tempItem && tempItem.cat == this.currentJob.cat && tempItem.unlocked == true) this.currentJob = tempItem;
+					}
                 }
                 
                 if (this.autoSkillEnabled) {
@@ -2323,6 +2373,28 @@ export default {
                     let skills = this.skills.filter(skill => skill.unlocked == true && skill.excluded == false)
                     skills.sort((sk1, sk2) => { return (sk1.getMax() / this.getTaskGain(sk1)) - (sk2.getMax() / this.getTaskGain(sk2)) })
                     if (skills[0] && skills[0].id != this.currentSkill.id) this.currentSkill = skills[0]
+                }
+
+                if (this.autoShopEnabled) {
+					let realNet = this.totalIncome;
+					let properties = this.properties.filter(property => property.unlocked && this.totalIncome - property.getExpense() >= 0).reverse();
+					if (properties[0] && properties[0].id != this.currentProperty.id) this.setCurrentProperty(properties[0].id);
+					if (properties[0]) {
+						realNet -= properties[0].getExpense();
+					}
+
+					this.artefacts.forEach(artefact => {
+						if (artefact.unlocked && realNet - artefact.getExpense() >= 0) {
+							if (!artefact.activated) {
+								artefact.activated = true;
+							}
+							realNet -= artefact.getExpense();
+						} else {
+							if (artefact.activated) {
+								artefact.activated = false;
+							}
+						}
+					})
                 }
 
                 let gainJob = this.getTaskGain(this.currentJob)
@@ -2503,9 +2575,13 @@ export default {
         
         toggleAutoJob() { this.autoJobEnabled = !this.autoJobEnabled },
 
+        toggleAutoJobCat() { this.autoJobCatEnabled = !this.autoJobCatEnabled },
+
         toggleAutoSkill() { this.autoSkillEnabled = !this.autoSkillEnabled },
 
         toggleAutoPause() { this.autoPauseEnabled = !this.autoPauseEnabled },
+
+        toggleAutoShop() { this.autoShopEnabled = !this.autoShopEnabled },
 
         //-----
         

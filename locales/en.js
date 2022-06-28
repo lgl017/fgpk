@@ -30,11 +30,13 @@ export default {
     'left_timeWarpingDesc': 'Age speed (\'W\')',
     'left_currentJob': 'Current Job',
     'left_autoJob': 'Auto-promote (\'P\')',
+	'left_autoJobCat': 'Auto-promote-category',
     'left_lvl': 'lvl',
     'left_currentSkill': 'Current Skill',
     'left_autoSkill': 'Auto-learn (\'S\')',
     'left_voidShift': 'Void Shift',
     'left_autoPause': 'Auto-pause (\' \')',
+	'left_autoShop': 'Auto-Shopping',
 
     'date_age': 'Age',
     'date_days': 'Days',
@@ -156,6 +158,11 @@ export default {
     'name_celestialRobe': 'Celestial Robe',
     'name_universeFragment': 'Universe Fragment',
     'name_multiverseFragment': 'Multiverse Fragment',
+	'name_common': 'Common Work',
+	'name_military': 'Military',
+	'name_arcane': 'The Arcane Association',
+	'name_void': 'The Void',
+	'name_galactic': 'Galactic Council',
     
     'name_rebirth1': 'Touch the eye',
     'name_rebirth2': 'Embrace Evil',
@@ -506,16 +513,22 @@ export default {
     'bonus_timeWarping4': 'Game speed +25%',
 
     'name_autoJob': 'Auto-promote',
+    'name_autoJobCat': 'Auto-promote-category',
     'name_autoSkill': 'Auto-learn',
     'name_autoPause': 'Auto-pause',
+    'name_autoShop': 'Auto-Shopping',
 
     'desc_autoJob': 'It goes on its own',
+	'desc_autoJobCat': 'It goes on its own',
     'desc_autoSkill': '...I have people for that',
     'desc_autoPause': 'Destiny in your own hands',
+	'desc_autoShop': 'It goes on its own',
     
     'check_autoJob': 'Auto-promote unlocked',
+    'check_autoJobCat': 'Auto-promote-category unlocked',
     'check_autoSkill': 'Auto-learn unlocked',
     'check_autoPause': 'Auto-pause unlocked',
+    'check_autoShop': 'Auto-Shopping unlocked',
 
     'name_achTent': 'Tent',
     'name_achHouse': 'House',
@@ -695,7 +708,6 @@ export default {
 	'content_rebirth_10000_3_4': ' essence',
 	'content_rebirth_10000_4': 'Transced will only show up if you have {0} ability unlocked!',
 	'content_rebirth_10000_4_1': 'Cosmic Recollection',
-	
 
 	'settings_language': "language",
 	'settings_language_en': "english",
