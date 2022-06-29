@@ -2350,9 +2350,14 @@ export default {
             let tickTimeMs = 1000 / this.fps
             let tickCount = Math.min(Math.floor(updateDeltaMs / tickTimeMs), this.fps * 1800)
             
+			let tickCountMax = 100
+			let tickMuti = 1;
+			if (tickCount > tickCountMax) {
+				tickMuti = Math.round(tickCount / tickCountMax);
+				tickCount = tickCountMax;
+			}
             for (let i = 0; i < tickCount; i++) {
-            
-                let gainDays = this.gameSpeed / this.fps
+                let gainDays = this.gameSpeed / this.fps * tickMuti;
                 this.days += gainDays
                 
                 if ((this.days - gainDays) < (this.pauseDelay * 365) && this.days > (this.pauseDelay * 365) && this.autoPauseEnabled == true) this.paused = true
@@ -2397,7 +2402,7 @@ export default {
 					})
                 }
 
-                let gainJob = this.getTaskGain(this.currentJob)
+                let gainJob = this.getTaskGain(this.currentJob) * tickMuti;
                 this.currentJob.progress(gainJob * this.gameSpeed / this.fps)
                 
                 let gainCoins = this.net * gainDays
@@ -2411,7 +2416,7 @@ export default {
                     this.artefacts.forEach(artefact => { artefact.activated = false })
                 }
                 
-                let gainSkill = this.getTaskGain(this.currentSkill)
+                let gainSkill = this.getTaskGain(this.currentSkill) * tickMuti;
                 this.currentSkill.progress(gainSkill * this.gameSpeed / this.fps)
                 
                 this.jobs.forEach(job => { if (job.unlocked == false) job.unlocked = this.isUnlocked(job) })
