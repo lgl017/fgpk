@@ -36,7 +36,7 @@ export default {
     'left_currentSkill': '当前技能',
     'left_autoSkill': '自动学习 (\'S\')',
     'left_voidShift': '虚空变换',
-    'left_autoPause': '自动暂停 (\' \')',
+    'left_autoPause': '自动暂停',
 	'left_autoShop': '自动购物',
 
     'date_age': '年',

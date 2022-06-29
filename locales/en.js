@@ -36,7 +36,7 @@ export default {
     'left_currentSkill': 'Current Skill',
     'left_autoSkill': 'Auto-learn (\'S\')',
     'left_voidShift': 'Void Shift',
-    'left_autoPause': 'Auto-pause (\' \')',
+    'left_autoPause': 'Auto-pause',
 	'left_autoShop': 'Auto-Shopping',
 
     'date_age': 'Age',

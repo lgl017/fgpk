@@ -2827,7 +2827,7 @@ export default {
         
         window.addEventListener('keypress', (e) => {
             
-            if (e.code == 'Space') this.toggleAutoPause()
+            if (e.code == 'Space') this.togglePause()
             else if (e.code == 'KeyP') this.toggleAutoJob()
             else if (e.code == 'KeyS') this.toggleAutoSkill()
             else if (e.code == 'KeyW') this.toggleTimeWarping()
