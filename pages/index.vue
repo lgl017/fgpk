@@ -388,13 +388,13 @@
                                 <img :src="require('~/assets/ui_'+language+'/shopOutline.png')" width="111px" :class="{ 'd-none':currentPage != 'shop' }" />
                             </button>
                         </div>
-                        <div v-if="years > 25" class="col-auto text-center" style="width:125px;">
+                        <div v-if="years >= 25" class="col-auto text-center" style="width:125px;">
                             <button type="button" class="btn p-0 border-0 grow" :class="{ 'active':currentPage == 'rebirth' }" @click="setCurrentPage('rebirth')">
                                 <img :src="require('~/assets/ui_'+language+'/rebirth.png')" width="100px" :class="{ 'd-none':currentPage == 'rebirth' }" />
                                 <img :src="require('~/assets/ui_'+language+'/rebirthOutline.png')" width="111px" :class="{ 'd-none':currentPage != 'rebirth' }" />
                             </button>
                         </div>
-                        <div v-if="years > 10000" class="col-auto text-center" style="width:125px;">
+                        <div v-if="years >= 10000" class="col-auto text-center" style="width:125px;">
                             <button type="button" class="btn p-0 border-0 grow" :class="{ 'active':currentPage == 'cosmos' }" @click="setCurrentPage('cosmos')">
                                 <img :src="require('~/assets/ui_'+language+'/cosmos.png')" width="100px" :class="{ 'd-none':currentPage == 'cosmos' }" />
                                 <img :src="require('~/assets/ui_'+language+'/cosmosOutline.png')" width="111px" :class="{ 'd-none':currentPage != 'cosmos' }" />
@@ -712,17 +712,17 @@
                             <SkillUnlocked v-if="getSkill('lifeEssence').unlocked == true" bg="listbg8" :skill="getSkill('lifeEssence')" :effectId="'lifespan'" :gain="getTaskGain(getSkill('lifeEssence'))" :isActive="isSkillActive('lifeEssence')" @activate="setCurrentSkill('lifeEssence')" />
 
                             <TaskLocked v-if="getSkill('timeWarping').visible == true && getSkill('timeWarping').unlocked == false" :task="getSkill('timeWarping')">
-                                <Requirement :req="getSkill('timeWarping').reqs[0]" :task="getSkill('adeptMage')" />
+                                <Requirement :req="getSkill('timeWarping').reqs[0]" :task="getJob('adeptMage')" />
                             </TaskLocked>
                             <SkillUnlocked v-if="getSkill('timeWarping').unlocked == true" bg="listbg8" :skill="getSkill('timeWarping')" :effectId="'gameSpeed'" :gain="getTaskGain(getSkill('timeWarping'))" :isActive="isSkillActive('timeWarping')" @activate="setCurrentSkill('timeWarping')" />
                             
                             <TaskLocked v-if="getSkill('astralBody').visible == true && getSkill('astralBody').unlocked == false" :task="getSkill('astralBody')">
-                                <Requirement :req="getSkill('astralBody').reqs[0]" :task="getSkill('archmage')" />
+                                <Requirement :req="getSkill('astralBody').reqs[0]" :task="getJob('archmage')" />
                             </TaskLocked>
                             <SkillUnlocked v-if="getSkill('astralBody').unlocked == true" bg="listbg8" :skill="getSkill('astralBody')" :effectId="'lifespan'" :gain="getTaskGain(getSkill('astralBody'))" :isActive="isSkillActive('astralBody')" @activate="setCurrentSkill('astralBody')" />
                             
                             <TaskLocked v-if="getSkill('temporalDimension').visible == true && getSkill('temporalDimension').unlocked == false" :task="getSkill('temporalDimension')">
-                                <Requirement :req="getSkill('temporalDimension').reqs[0]" :task="getSkill('chronomancer')" />
+                                <Requirement :req="getSkill('temporalDimension').reqs[0]" :task="getJob('chronomancer')" />
                             </TaskLocked>
                             <SkillUnlocked v-if="getSkill('temporalDimension').unlocked == true" bg="listbg8" :skill="getSkill('temporalDimension')" :effectId="'gameSpeed'" :gain="getTaskGain(getSkill('temporalDimension'))" :isActive="isSkillActive('temporalDimension')" @activate="setCurrentSkill('temporalDimension')" />
                             
@@ -872,12 +872,12 @@
                             <SkillUnlocked v-if="getSkill('parallelUniverse').unlocked == true" bg="listbg2" :skill="getSkill('parallelUniverse')" :effectId="'allSpeed'" :gain="getTaskGain(getSkill('parallelUniverse'))" :isActive="isSkillActive('parallelUniverse')" @activate="setCurrentSkill('parallelUniverse')" />
                             
                             <TaskLocked v-if="getSkill('higherDimensions').visible == true && getSkill('higherDimensions').unlocked == false" :task="getSkill('higherDimensions')">
-                                <EvilRequirement :req="10e3" :evils="evils" />
+                                <EssenceRequirement :req="10e3" :essences="essences" />
                             </TaskLocked>
                             <SkillUnlocked v-if="getSkill('higherDimensions').unlocked == true" bg="listbg2" :skill="getSkill('higherDimensions')" :effectId="'lifespan'" :gain="getTaskGain(getSkill('higherDimensions'))" :isActive="isSkillActive('higherDimensions')" @activate="setCurrentSkill('higherDimensions')" />
                             
                             <TaskLocked v-if="getSkill('epiphany').visible == true && getSkill('epiphany').unlocked == false" :task="getSkill('epiphany')">
-                                <EvilRequirement :req="30e3" :evils="evils" />
+                                <EssenceRequirement :req="30e3" :essences="essences" />
                             </TaskLocked>
                             <SkillUnlocked v-if="getSkill('epiphany').unlocked == true" bg="listbg2" :skill="getSkill('epiphany')" :effectId="'councilSpeed'" :gain="getTaskGain(getSkill('epiphany'))" :isActive="isSkillActive('epiphany')" @activate="setCurrentSkill('epiphany')" />
                             
@@ -1002,19 +1002,19 @@
                     <div v-if="currentPage == 'rebirth'" class="pt-4">
                         <div class="row g-2">
                         
-                            <div v-if="years > 25" class="col-9 mt-0">
+                            <div v-if="years >= 25" class="col-9 mt-0">
                                 <div class="bg-card px-3 py-2 text-white text-shadow small">
                                    {{ $t('content_rebirth_25') }}
                                 </div>
                             </div>
                             
-                            <div v-if="years > 45" class="ms-auto col-9">
+                            <div v-if="years >= 45" class="ms-auto col-9">
                                 <div class="bg-card px-3 py-2 text-white text-shadow small">
                                     {{ $t('content_rebirth_45') }}
                                 </div>
                             </div>
                         
-                            <div v-if="years > 65" class="col-9">
+                            <div v-if="years >= 65" class="col-9">
                                 <div class="bg-card px-3 py-2 text-white text-shadow small">
                                     <div class="p-1">
                                        {{ $t('content_rebirth_65_1') }}
@@ -1038,7 +1038,7 @@
                                 </div>
                             </div>
                             
-                            <div v-if="years > 200" class="ms-auto col-9">
+                            <div v-if="years >= 200" class="ms-auto col-9">
                                 <div class="bg-card px-3 py-2 text-white text-shadow small">
                                     <div class="p-1">
                                        {{ $t('content_rebirth_200_1') }}
@@ -1055,7 +1055,7 @@
                                 </div>
                             </div>
                             
-                            <div v-if="years > 1000" class="col-9">
+                            <div v-if="years >= 1000" class="col-9">
                                 <div class="bg-card px-3 py-2 text-white text-shadow small">
                                     <div class="p-1">
 										<i18n path="content_rebirth_1000_1" tag="span">
@@ -1071,7 +1071,7 @@
                                 </div>
                             </div>
                         
-                            <div v-if="years > 10000" class="ms-auto col-9">
+                            <div v-if="years >= 10000" class="ms-auto col-9">
                                 <div class="bg-card px-3 py-2 text-white text-shadow small">
                                     <div class="p-1">
 										<i18n path="content_rebirth_10000_1" tag="span">
@@ -1880,7 +1880,7 @@ export default {
             let timeWarping = this.getSkill('timeWarping')
             let temporalDimension = this.getSkill('temporalDimension')
             
-            let ret = timeWarping.getEffect() + temporalDimension.getEffect() * timeLoop.getEffect()
+            let ret = timeWarping.getEffect() * temporalDimension.getEffect() * timeLoop.getEffect();
             return ret
         },
             
@@ -1890,7 +1890,7 @@ export default {
             let timeWarping = this.getSkill('timeWarping')
             let temporalDimension = this.getSkill('temporalDimension')
                         
-            let timeWarpingSpeed = this.timeWarpingEnabled ? timeWarping.getEffect() + temporalDimension.getEffect() * timeLoop.getEffect() : 1
+            let timeWarpingSpeed = this.timeWarpingEnabled ? timeWarping.getEffect() * temporalDimension.getEffect() * timeLoop.getEffect() : 1
             
             let ret = 4 * +!this.paused * +this.isAlive * timeWarpingSpeed * this.achGameSpeed
             return ret
@@ -2524,10 +2524,10 @@ export default {
         
         isVisible(item) {
             
-            if (item.coinReq > 0) return item.coinReq > this.coins ? false : true
-            if (item.evilReq > 0) return item.evilReq > this.evils ? false : true
-            if (item.yearReq > 0) return item.yearReq > this.years ? false : true
-            if (item.essenceReq > 0) return item.essenceReq > this.essences ? false : true
+            // if (item.coinReq > 0) return item.coinReq > this.coins ? false : true
+            // if (item.evilReq > 0) return item.evilReq > this.evils ? false : true
+            // if (item.yearReq > 0) return item.yearReq > this.years ? false : true
+            // if (item.essenceReq > 0) return item.essenceReq > this.essences ? false : true
             
             let ret = true
             if (item.reqs) {
@@ -2537,6 +2537,20 @@ export default {
                     if (reqItem.unlocked == false) ret = false
                 })
             }
+
+			if (item.evilReq > 0 || item.essenceReq > 0) {
+				if (item instanceof Job) {
+					let firstLocked = this.jobs.find(job => job.cat === item.cat && job.unlocked === false);
+					if (firstLocked !== item) {
+						ret = false
+					}
+				} else if (item instanceof Skill) {
+					let firstLocked = this.skills.find(skill => skill.cat === item.cat && skill.unlocked === false);
+					if (firstLocked !== item) {
+						ret = false
+					}
+				}
+			}
             
             return ret
         },
