@@ -30,6 +30,7 @@ export default {
     'left_timeWarpingDesc': 'Age speed (\'W\')',
     'left_currentJob': 'Current Job',
     'left_autoJob': 'Auto-promote (\'P\')',
+	'left_currentJobCat': 'Current Job Category',
 	'left_autoJobCat': 'Auto-promote-category',
     'left_lvl': 'lvl',
     'left_currentSkill': 'Current Skill',
@@ -709,7 +710,8 @@ export default {
 	'content_rebirth_10000_4': 'Transced will only show up if you have {0} ability unlocked!',
 	'content_rebirth_10000_4_1': 'Cosmic Recollection',
 
-	'settings_language': "language",
+	'settings_language': "Language",
 	'settings_language_en': "english",
 	'settings_language_cn': "中文",
+	'settings_en_offline': "Enable Offline Gain",
 }

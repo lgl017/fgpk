@@ -1153,6 +1153,18 @@
                         <div class="container">
                             <div class="row mt-2">
                                 <div class="col-12">
+									<button type="button" class="btn p-0 border-0" @click="toggleOfflineGain()">
+										<img src="~/assets/ui/toggleOff.png" width="16px" :class="{ 'd-none':offlineGainEnabled == true }" />
+										<img src="~/assets/ui/toggleOn.png" width="16px" :class="{ 'd-none':offlineGainEnabled == false }" />
+									</button>
+                                    <span class="h5 text-light text-shadow">{{ $t('settings_en_offline') }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="row mt-2">
+                                <div class="col-12">
                                     <span class="h5 text-light text-shadow">{{ $t('settings_resetTitle') }}</span>
                                 </div>
                                 <div class="col-12 p-0">
@@ -1820,6 +1832,7 @@ export default {
             autoPauseEnabled:false,
             autoShopEnabled:false,
             timeWarpingEnabled:false,
+            offlineGainEnabled:true,
             
             currentJob:null,
             currentSkill:null,
@@ -1961,6 +1974,8 @@ export default {
 			},
 			set: function(val) {
 				this.$i18n.locale = val;
+
+				localStorage.setItem(this.localStorageName + "_language", this.language)
 			},
 		},
     },
@@ -1968,7 +1983,7 @@ export default {
     methods: {
     
         init() {
-        
+
             jobData.forEach(data => {
                 
                 let job = new Job(data)
@@ -2117,8 +2132,8 @@ export default {
                 if (!text) return console.warn('Load failed')
                 loadeddata = JSON.parse(text)
                 
-                this.locale = loadeddata.locale || this.locale
-                this.lastUpdateTimeMs = loadeddata.lastUpdateTimeMs || this.lastUpdateTimeMs
+                // this.locale = loadeddata.locale || this.locale
+                if (this.offlineGainEnabled) this.lastUpdateTimeMs = loadeddata.lastUpdateTimeMs || this.lastUpdateTimeMs
                 
                 this.currentPage = loadeddata.currentPage || this.currentPage
                 
@@ -2602,6 +2617,8 @@ export default {
 
         toggleAutoShop() { this.autoShopEnabled = !this.autoShopEnabled },
 
+        toggleOfflineGain() { this.offlineGainEnabled = !this.offlineGainEnabled; localStorage.setItem(this.localStorageName + "_offlineGainEnabled", this.offlineGainEnabled) },
+
         //-----
         
         rebirthOne() {
@@ -2795,7 +2812,7 @@ export default {
         
         resetGameData() {
         
-            localStorage.removeItem('fgpk')
+            localStorage.removeItem(this.localStorageName)
             
             window.location.reload()
         },
@@ -2816,7 +2833,11 @@ export default {
             else if (e.code == 'KeyW') this.toggleTimeWarping()
         }) 
         
-        setTimeout(() => { this.start() }, this.minLoadingTimerMS)
+		this.language = localStorage.getItem(this.localStorageName + "_language") || "cn";
+		this.offlineGainEnabled = (localStorage.getItem(this.localStorageName + "_offlineGainEnabled") || "true") !== "false";
+        setTimeout(() => {
+			this.start();
+		}, this.minLoadingTimerMS)
     },
     
     mounted() {

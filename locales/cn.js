@@ -713,4 +713,5 @@ export default {
 	'settings_language': "语言",
 	'settings_language_en': "english",
 	'settings_language_cn': "中文",
+	'settings_en_offline': "启用离线收益",
 }
