@@ -6,6 +6,8 @@ export default {
     'word_lvl': 'Lvl',
     'word_days': 'd',
     'word_autoExclude': 'Skip',
+	'word_autoExcludeLevel': 'Max Level',
+	'word_no_limit': 'All',
     'word_count': 'Count',
     'word_longest': 'Longest',
     'word_current': 'Current',
@@ -641,10 +643,10 @@ export default {
     'desc_rebirth25': 'Ultimate evil',
 
     'check_rebirth21': 'Embrace Evil x1',
-    'check_rebirth22': 'Embrace Evil x3',
-    'check_rebirth23': 'Embrace Evil x5',
-    'check_rebirth24': 'Embrace Evil x10',
-    'check_rebirth25': 'Embrace Evil x15',
+    'check_rebirth22': 'Embrace Evil x5',
+    'check_rebirth23': 'Embrace Evil x10',
+    'check_rebirth24': 'Embrace Evil x25',
+    'check_rebirth25': 'Embrace Evil x50',
 
     'bonus_rebirth22': 'Evail gain +25%',
     'bonus_rebirth23': 'Evail gain +25%',

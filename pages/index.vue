@@ -635,8 +635,8 @@
                             <JobUnlocked v-if="getJob('sigmaProioxis').unlocked == true" bg="listbg4" :job="getJob('sigmaProioxis')" :gain="getTaskGain(getJob('sigmaProioxis'))" :isActive="isJobActive('sigmaProioxis')" @activate="setCurrentJob('sigmaProioxis')" />
                             
                             <TaskLocked v-if="getJob('acallaris').visible == true && getJob('acallaris').unlocked == false" :task="getJob('acallaris')">
-                                <Requirement :req="getJob('acallaris').reqs[0]" :task="getJob('sigmaProioxis')" />
-                                <Requirement :req="getJob('acallaris').reqs[1]" :task="getSkill('galacticCommand')" />
+                                <Requirement :req="getJob('acallaris').reqs[0]" :task="getSkill('galacticCommand')" />
+                                <Requirement :req="getJob('acallaris').reqs[1]" :task="getJob('sigmaProioxis')" />
                             </TaskLocked>
                             <JobUnlocked v-if="getJob('acallaris').unlocked == true" bg="listbg4" :job="getJob('acallaris')" :gain="getTaskGain(getJob('acallaris'))" :isActive="isJobActive('acallaris')" @activate="setCurrentJob('acallaris')" />
                             
@@ -1386,7 +1386,28 @@ class Task extends Base {
         
         this.visible = false
         this.gainMods = []
+
+		this.excluded = false
+		this._excludeLevel = -1;
     }
+
+	get excludeLevel() {
+		if (isNaN(this._excludeLevel) || this._excludeLevel < 0) {
+			return 'word_no_limit';
+		} else {
+			return this._excludeLevel;
+		}
+	}
+	set excludeLevel(val) {
+		val = +val;
+		if (isNaN(val) || val < 0) {
+			this._excludeLevel = -1;
+
+			this.excluded = false;
+		} else {
+			this._excludeLevel = val;
+		}
+	}
     
     getGain() {
     
@@ -1557,7 +1578,6 @@ class Skill extends Task {
         this.essenceReq = data.essenceReq
         
         this.max = 100
-        this.excluded = false
     }
     
     getEffect() {
@@ -2187,6 +2207,7 @@ export default {
                         skill.level = data.level || 0
                         skill.current = data.current || 0
                         skill.excluded = data.excluded || false
+                        skill.excludeLevel = data.excludeLevel === undefined ? -1 : data.excludeLevel
                         skill.bonusLevel = data.bonusLevel || 0
                     }
                 })
@@ -2292,6 +2313,7 @@ export default {
                     level:skill.level,
                     current:skill.current,
                     excluded:skill.excluded,
+                    excludeLevel:skill.excludeLevel,
                     bonusLevel:skill.bonusLevel,
                 }
                 
@@ -2389,6 +2411,15 @@ export default {
                 }
                 
                 if (this.autoSkillEnabled) {
+					this.skills.forEach(skill => {
+						if (skill._excludeLevel >= 0) {
+							if (skill.level >= skill._excludeLevel) {
+								skill.excluded = true;
+							} else {
+								skill.excluded = false;
+							}
+						}
+					});
                 
                     let skills = this.skills.filter(skill => skill.unlocked == true && skill.excluded == false)
                     skills.sort((sk1, sk2) => { return (sk1.getMax() / this.getTaskGain(sk1)) - (sk2.getMax() / this.getTaskGain(sk2)) })

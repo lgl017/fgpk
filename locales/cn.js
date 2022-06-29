@@ -6,6 +6,8 @@ export default {
     'word_lvl': '等级',
     'word_days': '天',
     'word_autoExclude': '跳过',
+    'word_autoExcludeLevel': '最大等级',
+    'word_no_limit': '不限',
     'word_count': '计数',
     'word_longest': '最久周目',
     'word_current': '当前周目',
@@ -641,10 +643,10 @@ export default {
     'desc_rebirth25': '终级邪恶',
 
     'check_rebirth21': '拥抱邪恶 1次',
-    'check_rebirth22': '拥抱邪恶 3次',
-    'check_rebirth23': '拥抱邪恶 5次',
-    'check_rebirth24': '拥抱邪恶 10次',
-    'check_rebirth25': '拥抱邪恶 15次',
+    'check_rebirth22': '拥抱邪恶 5次',
+    'check_rebirth23': '拥抱邪恶 10次',
+    'check_rebirth24': '拥抱邪恶 25次',
+    'check_rebirth25': '拥抱邪恶 50次',
 
     'bonus_rebirth22': '邪恶收益 +25%',
     'bonus_rebirth23': '邪恶收益 +25%',
