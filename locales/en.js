@@ -604,7 +604,7 @@ export default {
     'check_hoarder1': 'Have 5 active miscs',
     'check_hoarder2': 'Have 10 active miscs',
     'check_hoarder3': 'Have 14 active miscs',
-    'check_hoarder4': 'Have 20 active miscs',
+    'check_hoarder4': 'Have 18 active miscs',
 
     'bonus_hoarder2': 'Happiness +10%',
     'bonus_hoarder3': 'Happiness +15%',

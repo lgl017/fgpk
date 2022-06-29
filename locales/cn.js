@@ -604,7 +604,7 @@ export default {
     'check_hoarder1': '激活 5 项杂项',
     'check_hoarder2': '激活 10 项杂项',
     'check_hoarder3': '激活 14 项杂项',
-    'check_hoarder4': '激活 20 项杂项',
+    'check_hoarder4': '激活 18 项杂项',
 
     'bonus_hoarder2': '幸福感 +10%',
     'bonus_hoarder3': '幸福感 +15%',

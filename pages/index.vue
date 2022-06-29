@@ -1777,7 +1777,7 @@ var achievementData = [
     { id:'hoarder1', type:'hoarder', level:1, check:function(state) { return state.activeArtefactCount >= 5 },  },
     { id:'hoarder2', type:'hoarder', level:2, check:function(state) { return state.activeArtefactCount >= 10 }, apply:function(state) { state.achHappiness += .1 }, },
     { id:'hoarder3', type:'hoarder', level:3, check:function(state) { return state.activeArtefactCount >= 14 }, apply:function(state) { state.achHappiness += .15 }, },
-    { id:'hoarder4', type:'hoarder', level:4, check:function(state) { return state.activeArtefactCount >= 20 }, apply:function(state) { state.achHappiness += .25 }, },
+    { id:'hoarder4', type:'hoarder', level:4, check:function(state) { return state.activeArtefactCount >= 18 }, apply:function(state) { state.achHappiness += .25 }, },
 
     { id:'rebirth11', type:'rebirth1', level:1, check:function(state) { return state.rebirthOneCount >= 1  }, },
     { id:'rebirth12', type:'rebirth1', level:2, check:function(state) { return state.rebirthOneCount >= 5  }, },
