@@ -22,7 +22,7 @@
 				<div class="col-12 d-flex text-success text-shadow align-items-baseline justify-content-end">
                     <div class="form-check">
                         <label class="form-check-label text-light text-shadow small" :for="'switchExcluded' + skill.id">{{ $t('word_autoExcludeLevel') }}</label>
-                        <input class="form-input form-control" autocomplete="off" style="width: 50px; display: inline-block; height: 20px; line-height: 20px; text-align: center;" role="switch" :type="typeof skill.excludeLevel === 'string' ? 'text' : 'number'" min="-1" step="1" :id="'switchExcluded' + skill.id" :value="typeof skill.excludeLevel === 'string' ? $t(skill.excludeLevel) : skill.excludeLevel" @input="(e) => skill.excludeLevel = e.target.value">
+                        <input class="form-input form-control" autocomplete="off" style="width: 50px; display: inline-block; height: 20px; line-height: 20px; text-align: center;" role="switch" :id="'switchExcluded' + skill.id" :value="typeof skill.excludeLevel === 'string' ? $t(skill.excludeLevel) : skill.excludeLevel" @input="(e) => skill.excludeLevel = e.target.value">
                     </div>
                 </div>
                 <div class="col-12 d-flex text-success text-shadow align-items-baseline justify-content-end">

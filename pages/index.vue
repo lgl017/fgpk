@@ -1393,7 +1393,11 @@ class Task extends Base {
 
 	get excludeLevel() {
 		if (isNaN(this._excludeLevel) || this._excludeLevel < 0) {
-			return 'word_no_limit';
+			if (this instanceof Job) {
+				return 'word_no_set';
+			} else {
+				return 'word_no_limit';
+			}
 		} else {
 			return this._excludeLevel;
 		}
@@ -2196,6 +2200,7 @@ export default {
                         job.level = data.level || 0
                         job.current = data.current || 0
                         job.bonusLevel = data.bonusLevel || 0
+						job.excludeLevel = data.excludeLevel === undefined ? -1 : data.excludeLevel
                     }
                 })
                 
@@ -2301,6 +2306,7 @@ export default {
                     level:job.level,
                     current:job.current,
                     bonusLevel:job.bonusLevel,
+                    excludeLevel:job.excludeLevel,
                 }
                 
                 saveddata.jobs.push(temp)
@@ -2400,13 +2406,16 @@ export default {
                 if ((this.days - gainDays) < (this.pauseDelay * 365) && this.days > (this.pauseDelay * 365) && this.autoPauseEnabled == true) this.paused = true
 
                 if (this.autoJobEnabled) {
-					if (this.autoJobCatEnabled) {
-						let jobs = this.jobs.filter(job => job.unlocked == true).reverse();
-						if (jobs[0] && jobs[0].id != this.currentJob.id) this.currentJob = jobs[0];
+					let targetLeveljob = this.jobs.filter(job => job.unlocked == true && (this.autoJobCatEnabled || job.cat == this.currentJob.cat)).find(job => job._excludeLevel >= 0 && job.level < job._excludeLevel);
+					if (targetLeveljob) {
+						this.currentJob = targetLeveljob;
 					} else {
-						let index = this.jobs.findIndex(job => job.id == this.currentJob.id)                    
-						let tempItem = this.jobs[index + 1]
-						if (tempItem && tempItem.cat == this.currentJob.cat && tempItem.unlocked == true) this.currentJob = tempItem;
+						let jobs = this.jobs.filter(job => job.unlocked == true && (this.autoJobCatEnabled || job.cat == this.currentJob.cat)).reverse();
+						if (jobs[0] && jobs[0].id != this.currentJob.id) this.currentJob = jobs[0];
+
+						// let index = this.jobs.findIndex(job => job.id == this.currentJob.id)                    
+						// let tempItem = this.jobs[index + 1]
+						// if (tempItem && tempItem.cat == this.currentJob.cat && tempItem.unlocked == true) this.currentJob = tempItem;
 					}
                 }
                 
