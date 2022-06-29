@@ -2118,7 +2118,7 @@ export default {
                 loadeddata = JSON.parse(text)
                 
                 this.locale = loadeddata.locale || this.locale
-                // this.lastUpdateTimeMs = loadeddata.lastUpdateTimeMs || this.lastUpdateTimeMs
+                this.lastUpdateTimeMs = loadeddata.lastUpdateTimeMs || this.lastUpdateTimeMs
                 
                 this.currentPage = loadeddata.currentPage || this.currentPage
                 
