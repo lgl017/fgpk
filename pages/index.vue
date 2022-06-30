@@ -854,7 +854,7 @@
                             <SkillUnlocked v-if="getSkill('voidInfluence').unlocked == true" bg="listbg5" :skill="getSkill('voidInfluence')" :effectId="'allSpeed'" :gain="getTaskGain(getSkill('voidInfluence'))" :isActive="isSkillActive('voidInfluence')" @activate="setCurrentSkill('voidInfluence')" />
                             
                             <TaskLocked v-if="getSkill('timeLoop').visible == true && getSkill('timeLoop').unlocked == false" :task="getSkill('timeLoop')">
-                                <EvilRequirement :req="250e3" :evils="evils" />
+                                <EvilRequirement :req="2500e3" :evils="evils" />
                             </TaskLocked>
                             <SkillUnlocked v-if="getSkill('timeLoop').unlocked == true" bg="listbg5" :skill="getSkill('timeLoop')" :effectId="'gameSpeed'" :gain="getTaskGain(getSkill('timeLoop'))" :isActive="isSkillActive('timeLoop')" @activate="setCurrentSkill('timeLoop')" />
                             
