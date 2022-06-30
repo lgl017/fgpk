@@ -1563,7 +1563,7 @@ var skillData = [
     { id:'demonsWealth',        cat:'dark',             effect:0.002,      evilReq:500,    },
     { id:'darkKnowledge',       cat:'dark',             effect:0.003,      evilReq:5e3,    },
     { id:'voidInfluence',       cat:'dark',             effect:0.0028,     evilReq:50e3,   },
-    { id:'timeLoop',            cat:'dark',             effect:0.001,      evilReq:250e3,  },
+    { id:'timeLoop',            cat:'dark',             effect:0.001,      evilReq:2500e3,  },
     { id:'evilIncarnate',       cat:'dark',             effect:0.0004,     evilReq:1e9,    },
 	
     { id:'yinYang',             cat:'almightiness',     effect:0.018,      essenceReq:1,       },
