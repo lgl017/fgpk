@@ -2590,23 +2590,28 @@ export default {
             // if (item.essenceReq > 0) return item.essenceReq > this.essences ? false : true
             
             let ret = true
-            if (item.reqs) {
-                item.reqs.forEach(req => {
+			if (item.unlocked) {
+				return ret;
+			}
+            // if (item.reqs) {
+            //     item.reqs.forEach(req => {
                     
-                    let reqItem = this.getTask(req.id)                    
-                    if (reqItem.unlocked == false) ret = false
-                })
-            }
+            //         let reqItem = this.getTask(req.id)                    
+            //         if (reqItem.unlocked == false) ret = false
+            //     })
+            // }
 
-			if (item.evilReq > 0 || item.essenceReq > 0) {
+			if (item.evilReq > 0 || item.essenceReq > 0 || item.reqs) {
 				if (item instanceof Job) {
+					let first = this.jobs.find(job => job.cat === item.cat);
 					let firstLocked = this.jobs.find(job => job.cat === item.cat && job.unlocked === false);
-					if (firstLocked !== item) {
+					if (firstLocked !== item || !first.unlocked) {
 						ret = false
 					}
 				} else if (item instanceof Skill) {
+					let first = this.skills.find(skill => skill.cat === item.cat);
 					let firstLocked = this.skills.find(skill => skill.cat === item.cat && skill.unlocked === false);
-					if (firstLocked !== item) {
+					if (firstLocked !== item || !first.unlocked) {
 						ret = false
 					}
 				}
