@@ -35,13 +35,21 @@
                     <span class="text-light text-shadow">{{ $t('job_level') }}</span>
                     <span class="text-white text-shadow"><FormatNumber :value="job.level" /></span>
                 </div>
+				<div class="col-auto small">
+                    <span class="text-light text-shadow">{{ $t('job_soulLevel') }}</span>
+                    <span class="text-white text-shadow"><FormatNumber :value="job.soulLevel" /></span>
+                </div>
                 <div v-if="job.bonusLevel > 0" class="col-auto small">
                     <span class="text-light text-shadow">{{ $t('job_max') }}</span>
                     <span class="text-white text-shadow"><FormatNumber :value="job.bonusLevel" /></span>
                 </div>
                 <div class="col-12"></div>
-                <div v-if="job.bonusLevel > 0" class="col-auto small">
+                <div class="col-auto small">
                     <span class="text-light text-shadow">{{ $t('job_speed') }}</span>
+                    <span class="text-success text-shadow">+<FormatNumber :value="job.soulLevel * 10" /> %</span>
+                </div>
+				<div v-if="job.bonusLevel > 0" class="col-auto small">
+                    <span class="text-light text-shadow">{{ $t('job_soulSpeed') }}</span>
                     <span class="text-success text-shadow">+<FormatNumber :value="job.bonusLevel * 10" /> %</span>
                 </div>
             </div>
@@ -53,6 +61,19 @@
                 </div>
                 <div class="col-auto pe-0">
                     <button type="button" class="btn p-0 border-0" @click="$emit('activate')">
+                        <img v-if="isActive == false" src="~/assets/ui/toggleOff.png" width="24px" />
+                        <img v-if="isActive == true" src="~/assets/ui/toggleOn.png" width="24px" />
+                    </button>
+                </div>
+            </div>
+			<div class="mt-1 row align-items-center" style="margin-top: -0.5rem !important">
+                <div class="col">
+                    <div class="my-1 progress bg-progress soul-progress">
+                        <div class="progress-bar soul-progress bg-normal" role="progressbar" :style="'width:' + Math.round(100 * this.job.soulCurrent / this.job.getSoulMax()) + '%'" :aria-valuenow="Math.round(100 * this.job.soulCurrent / this.job.getSoulMax())" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+				<div class="col-auto pe-0">
+                    <button style="opacity: 0;" type="button" class="btn p-0 border-0" @click="$emit('activate')">
                         <img v-if="isActive == false" src="~/assets/ui/toggleOff.png" width="24px" />
                         <img v-if="isActive == true" src="~/assets/ui/toggleOn.png" width="24px" />
                     </button>

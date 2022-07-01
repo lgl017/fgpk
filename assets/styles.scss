@@ -256,6 +256,10 @@ body { background-image:url('~@/assets/ui/background.png'); background-size:cove
     background-color:transparent; background-image:url('~@/assets/ui/progressBg.png'); background-size:cover;
 }
 .progress-bar.bg-normal { background-image:url('~@/assets/ui/progressBar.png'); background-size:cover; }
+.progress.bg-progress.soul-progress {
+    height:4px;
+}
+.progress-bar.bg-normal.soul-progress { filter: hue-rotate(180deg); }
 
 .form-check-input {
     width:1.25em; height:1.25em;

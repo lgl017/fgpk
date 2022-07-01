@@ -47,8 +47,10 @@ export default {
     'date_days': 'Days',
     
     'job_level': 'Lvl',
+	'job_soulLevel': 'SLvl',
     'job_max': 'Max',
     'job_speed': 'Speed',
+    'job_soulSpeed': 'Soul Speed',
     
     'req_level': 'lvl',
     
@@ -685,7 +687,7 @@ export default {
 	'content_rebirth_25': 'You stumble across a strange looking amulet on your 25th birthday. It does not look like \r it has any worth on the market given that it\'s made from cheap-looking copper. However, you \r feel a weird urge to keep the amulet, so you slip it into your pocket for safekeeping.',
 	'content_rebirth_45': 'On your 45th birthday, you feel the amulet shiver uncontrollably in your pocket. You take it \r out and the constant shivering suddenly stops. More to your bizarre surprise, you notice \r a strange etching on the centre of the amulet.',
 	'content_rebirth_65_1': 'On your 65th birthday, you once again encounter the strange, unexplained shivering from your \r amulet. But this time, a living eyeball emerges from the centre. Although terribly frightened, \r you realise you do not have many years to live left anyway so you consider touching the eye \r to see what happens.',
-	'content_rebirth_65_2': 'By touching the eyeball, you will be reborn and have to restart life again, losing all your levels and coins. \r However, you will gain {0} for your jobs and skills equivalent to: {1}. \r This means you will learn everything again much more quickly than you did in your previous life.',
+	'content_rebirth_65_2': 'By touching the eyeball, you will be reborn and have to restart life again, losing all your levels and coins. \r However, you will gain {0} for your jobs and skills soul level equivalent to: {1}. \r This means you will learn everything again much more quickly than you did in your previous life.',
 	'content_rebirth_65_2_1': 'bonus',
 	'content_rebirth_65_2_2': '1 + the max level of the job or skill / 10',
 	'content_rebirth_65_3': ' Something tells you that the amulet might evolve after living for {0} and transform even further after living for \r a {1} and reach its final form after {2}...',

@@ -184,7 +184,7 @@
                         </div>
                     </div>
 
-                    <div v-if="years >= 20 || rebirthOneCount >= 1" class="container">
+                    <div class="container">
                         <div class="row align-items-baseline">
                             <div class="col">
                                 <span class="h5 text-light text-shadow">{{ $t('left_currentJob') }}</span>
@@ -210,7 +210,7 @@
                         </div>
                     </div>
 
-                    <div v-if="years >= 20 || rebirthOneCount >= 1" class="container">
+                    <div class="container">
                         <div class="row align-items-baseline">
                             <div class="col">
                                 <span class="h5 text-light text-shadow">{{ $t('left_currentJobCat') }}</span>
@@ -232,7 +232,7 @@
                         </div>
                     </div>
 
-                    <div v-if="years >= 20 || rebirthOneCount >= 1" class="container">
+                    <div class="container">
                         <div class="row align-items-baseline">
                             <div class="col">
                                 <span class="h5 text-light text-shadow">{{ $t('left_currentSkill') }}</span>
@@ -258,7 +258,7 @@
                         </div>
                     </div>
 
-					<div v-if="years >= 20 || rebirthOneCount >= 1" class="container">
+					<div class="container">
                         <div class="row align-items-center">
                             <div class="col-auto pe-0">
                                 <button type="button" class="btn p-0 border-0" @click="toggleAutoShop()">
@@ -1443,6 +1443,8 @@ class Task extends Base {
         
         this.level = 0
         this.current = 0
+        this.soulLevel = 0
+        this.soulCurrent = 0
         this.bonusLevel = 0
         
         this.visible = false
@@ -1479,7 +1481,7 @@ class Task extends Base {
         let mult = 1
         this.gainMods.forEach(mod => { mult *= mod.getEffect() })
         
-        mult *= 1 + this.bonusLevel / 10
+        mult *= 1 + this.soulLevel / 10
         
         let ret = Math.round(10 * mult)
         return ret
@@ -1495,10 +1497,16 @@ class Task extends Base {
         let ret = Math.round(this.max * (this.level + 1) * Math.pow(1.01, this.level))
         return ret
     }
+    getSoulMax() {
+        let ret = Math.round((this.max * 10) * (this.soulLevel + 1) * Math.pow(1.1, this.soulLevel))
+        return ret
+    }
     
     progress(gain) {
-    
-        this.current += gain
+		let mult = 1;
+		mult *= 1 + this.bonusLevel / 10;
+
+        this.current += gain * mult
         
         if (this.current >= this.getMax()) {
         
@@ -1510,6 +1518,22 @@ class Task extends Base {
             }
             
             this.current = this.getMax() + excess
+        }
+    }
+    soulProgress(gain) {
+    
+        this.soulCurrent += gain
+        
+        if (this.soulCurrent >= this.getSoulMax()) {
+        
+            let excess = this.soulCurrent - this.getSoulMax()            
+            while (excess >= 0) {
+            
+                this.soulLevel += 1
+                excess -= this.getSoulMax()
+            }
+            
+            this.soulCurrent = this.getSoulMax() + excess
         }
     }
 }
@@ -2295,6 +2319,8 @@ export default {
                         job.level = data.level || 0
                         job.current = data.current || 0
                         job.bonusLevel = data.bonusLevel || 0
+                        job.soulLevel = data.soulLevel || 0
+                        job.soulCurrent = data.soulCurrent || 0
 						job.excludeLevel = data.excludeLevel === undefined ? -1 : data.excludeLevel
                     }
                 })
@@ -2309,6 +2335,8 @@ export default {
                         skill.excluded = data.excluded || false
                         skill.excludeLevel = data.excludeLevel === undefined ? -1 : data.excludeLevel
                         skill.bonusLevel = data.bonusLevel || 0
+						skill.soulLevel = data.soulLevel || 0
+                        skill.soulCurrent = data.soulCurrent || 0
                     }
                 })
                 
@@ -2406,6 +2434,8 @@ export default {
                     level:job.level,
                     current:job.current,
                     bonusLevel:job.bonusLevel,
+					soulLevel:job.soulLevel,
+					soulCurrent:job.soulCurrent,
                     excludeLevel:job.excludeLevel,
                 }
                 
@@ -2421,6 +2451,8 @@ export default {
                     excluded:skill.excluded,
                     excludeLevel:skill.excludeLevel,
                     bonusLevel:skill.bonusLevel,
+					soulLevel:skill.soulLevel,
+					soulCurrent:skill.soulCurrent,
                 }
                 
                 saveddata.skills.push(temp)
@@ -2569,6 +2601,7 @@ export default {
 
                 let gainJob = this.getTaskGain(this.currentJob) * tickMuti;
                 this.currentJob.progress(gainJob * this.gameSpeed / this.fps)
+                this.currentJob.soulProgress(gainJob * this.gameSpeed / this.fps)
                 
                 let gainCoins = this.net * gainDays
                 this.coins += gainCoins
@@ -2583,6 +2616,7 @@ export default {
                 
                 let gainSkill = this.getTaskGain(this.currentSkill) * tickMuti;
                 this.currentSkill.progress(gainSkill * this.gameSpeed / this.fps)
+                this.currentSkill.soulProgress(gainSkill * this.gameSpeed / this.fps)
                 
                 this.jobs.forEach(job => { if (job.unlocked == false) job.unlocked = this.isUnlocked(job) })
                 this.jobs.forEach(job => { if (job.visible == false) job.visible = this.isVisible(job) })
