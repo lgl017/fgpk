@@ -1912,7 +1912,7 @@ export default {
                         
             importExportData:null,
             
-            localStorageName:'fgpk',
+            localStorageName:'fgpk-mod-soul-level',
             
             //-----
             
