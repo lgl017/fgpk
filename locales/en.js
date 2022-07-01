@@ -718,4 +718,9 @@ export default {
 	'settings_language_en': "english",
 	'settings_language_cn': "中文",
 	'settings_en_offline': "Enable Offline Gain",
+	'settings_extra_content': "Enable Extra Content",
+	'left_auto_rebirth': "Auto Rebirth",
+	'left_auto_evil': "Auto Evils",
+	'left_auto_essence': "Auto Essences",
+	'left_auto_gain_when': "Amount Bigger when {0}",
 }

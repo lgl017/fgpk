@@ -718,4 +718,9 @@ export default {
 	'settings_language_en': "english",
 	'settings_language_cn': "中文",
 	'settings_en_offline': "启用离线收益",
+	'settings_extra_content': "启用额外内容",
+	'left_auto_rebirth': "自动重生",
+	'left_auto_evil': "自动邪恶",
+	'left_auto_essence': "自动精华",
+	'left_auto_gain_when': "数量大于 {0}",
 }

@@ -272,6 +272,56 @@
                         </div>
                     </div>
 
+					<div v-if="rebirthOneCount >= 1" class="container">
+                        <div class="row align-items-center">
+                            <div class="col-auto pe-0">
+                                <button type="button" class="btn p-0 border-0" @click="toggleAutoRebirth()">
+                                    <img src="~/assets/ui/toggleOff.png" width="16px" :class="{ 'd-none':autoRebirthEnabled == true }" />
+                                    <img src="~/assets/ui/toggleOn.png" width="16px" :class="{ 'd-none':autoRebirthEnabled == false }" />
+                                </button>
+                            </div>
+                            <div class="col small">
+                                <span class="text-muted text-shadow">{{ $t('left_auto_rebirth') }}</span>
+                            </div>
+                        </div>
+                    </div>
+					<div v-if="rebirthTwoCount >= 1" class="container">
+                        <div class="row align-items-center">
+                            <div class="col-auto pe-0">
+                                <button type="button" class="btn p-0 border-0" @click="toggleAutoEvil()">
+                                    <img src="~/assets/ui/toggleOff.png" width="16px" :class="{ 'd-none':autoEvilEnabled == true }" />
+                                    <img src="~/assets/ui/toggleOn.png" width="16px" :class="{ 'd-none':autoEvilEnabled == false }" />
+                                </button>
+                            </div>
+                            <div class="col small">
+                                <span class="text-muted text-shadow">{{ $t('left_auto_evil') }}</span>
+                            </div>
+                            <div class="col-auto small">
+								<i18n path="left_auto_gain_when" label="span" class="text-light">
+                                	<input class="form-input form-control form-control-sm text-end" autocomplete="off" style="width: 90px; display: inline-block;text-align: center;" v-model="autoEvilNumber">
+								</i18n>
+                            </div>
+                        </div>
+                    </div>
+					<div v-if="rebirthThreeCount >= 1" class="container">
+                        <div class="row align-items-center">
+                            <div class="col-auto pe-0">
+                                <button type="button" class="btn p-0 border-0" @click="toggleAutoEssence()">
+                                    <img src="~/assets/ui/toggleOff.png" width="16px" :class="{ 'd-none':autoEssenceEnabled == true }" />
+                                    <img src="~/assets/ui/toggleOn.png" width="16px" :class="{ 'd-none':autoEssenceEnabled == false }" />
+                                </button>
+                            </div>
+                            <div class="col small">
+                                <span class="text-muted text-shadow">{{ $t('left_auto_essence') }}</span>
+                            </div>
+                            <div class="col-auto small">
+								<i18n path="left_auto_gain_when" label="span" class="text-light">
+                                	<input class="form-input form-control form-control-sm text-end" autocomplete="off" style="width: 90px; display: inline-block; text-align: center;" v-model="autoEssenceNumber">
+								</i18n>
+                            </div>
+                        </div>
+                    </div>
+
                     <div v-if="getJob('corrupted').unlocked || rebirthThreeCount > 0" class="container">
                         <div class="row align-items-center">
                             <div class="col">
@@ -1161,6 +1211,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="container">
+                            <div class="row mt-2">
+                                <div class="col-12">
+									<button type="button" class="btn p-0 border-0" @click="toggleOfflineGain()">
+										<img src="~/assets/ui/toggleOff.png" width="16px" :class="{ 'd-none':offlineGainEnabled == true }" />
+										<img src="~/assets/ui/toggleOn.png" width="16px" :class="{ 'd-none':offlineGainEnabled == false }" />
+									</button>
+                                    <span class="h5 text-light text-shadow">{{ $t('settings_extra_content') }}</span>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="container">
                             <div class="row mt-2">
@@ -1857,6 +1918,11 @@ export default {
             autoShopEnabled:false,
             timeWarpingEnabled:false,
             offlineGainEnabled:true,
+            autoRebirthEnabled:false,
+            autoEvilEnabled:false,
+            autoEvilNumber_:1,
+            autoEssenceEnabled:false,
+            autoEssenceNumber_:1,
             
             currentJob:null,
             currentSkill:null,
@@ -1902,7 +1968,7 @@ export default {
             let higherDimensions = this.getSkill('higherDimensions')
             
             let ret = (365 * 70) * lifeEssence.getEffect() * astralBody.getEffect() * ceaselessAbyss.getEffect() * cosmicLongevity.getEffect() * higherDimensions.getEffect() * this.achLifespan
-            return ret;
+            return ret * 1000000;
         },
         
         isAlive: function() {
@@ -2000,6 +2066,30 @@ export default {
 				this.$i18n.locale = val;
 
 				localStorage.setItem(this.localStorageName + "_language", this.language)
+			},
+		},
+		autoEvilNumber: {
+			get: function() {
+				return this.autoEvilNumber_;
+			},
+			set: function(val) {
+				val = +val;
+				if (isNaN(val) || val <= 0) {
+					return;
+				}
+				this.autoEvilNumber_ = val;
+			},
+		},
+		autoEssenceNumber: {
+			get: function() {
+				return this.autoEssenceNumber_;
+			},
+			set: function(val) {
+				val = +val;
+				if (isNaN(val) || val <= 0) {
+					return;
+				}
+				this.autoEssenceNumber_ = val;
 			},
 		},
     },
@@ -2174,6 +2264,11 @@ export default {
                 this.autoSkillEnabled = loadeddata.autoSkillEnabled || this.autoSkillEnabled
                 this.autoPauseEnabled = loadeddata.autoPauseEnabled || this.autoPauseEnabled
                 this.autoShopEnabled = loadeddata.autoShopEnabled || this.autoShopEnabled
+                this.autoRebirthEnabled = loadeddata.autoRebirthEnabled || this.autoRebirthEnabled
+                this.autoEvilEnabled = loadeddata.autoEvilEnabled || this.autoEvilEnabled
+                this.autoEvilNumber = loadeddata.autoEvilNumber || this.autoEvilNumber
+                this.autoEssenceEnabled = loadeddata.autoEssenceEnabled || this.autoEssenceEnabled
+                this.autoEssenceNumber = loadeddata.autoEssenceNumber || this.autoEssenceNumber
                 this.timeWarpingEnabled = loadeddata.timeWarpingEnabled || this.timeWarpingEnabled
                 
                 this.rebirthOneCount = loadeddata.rebirthOneCount || this.rebirthOneCount
@@ -2280,6 +2375,11 @@ export default {
                 autoSkillEnabled:this.autoSkillEnabled,
                 autoPauseEnabled:this.autoPauseEnabled,
                 autoShopEnabled:this.autoShopEnabled,
+                autoRebirthEnabled:this.autoRebirthEnabled,
+                autoEvilEnabled:this.autoEvilEnabled,
+                autoEvilNumber:this.autoEvilNumber,
+                autoEssenceEnabled:this.autoEssenceEnabled,
+                autoEssenceNumber:this.autoEssenceNumber,
                 timeWarpingEnabled:this.timeWarpingEnabled,
                 
                 rebirthOneCount:this.rebirthOneCount,
@@ -2404,6 +2504,16 @@ export default {
                 this.days += gainDays
                 
                 if ((this.days - gainDays) < (this.pauseDelay * 365) && this.days > (this.pauseDelay * 365) && this.autoPauseEnabled == true) this.paused = true
+
+				if (this.autoEssenceEnabled && this.essenceGain > this.autoEssenceNumber && this.years >= 10000) {
+					this.rebirthThree();
+				}
+				if (this.autoEvilEnabled && this.evilGain > this.autoEvilNumber && this.years >= 200) {
+					this.rebirthTwo();
+				}
+				if (this.autoRebirthEnabled && !this.isAlive && this.years >= 65) {
+					this.rebirthOne();
+				}
 
                 if (this.autoJobEnabled) {
 					let targetLeveljob = this.jobs.filter(job => job.unlocked == true && (this.autoJobCatEnabled || job.cat == this.currentJob.cat)).find(job => job._excludeLevel >= 0 && job.level < job._excludeLevel);
@@ -2667,6 +2777,12 @@ export default {
         toggleAutoPause() { this.autoPauseEnabled = !this.autoPauseEnabled },
 
         toggleAutoShop() { this.autoShopEnabled = !this.autoShopEnabled },
+
+        toggleAutoRebirth() { this.autoRebirthEnabled = !this.autoRebirthEnabled },
+
+        toggleAutoEvil() { this.autoEvilEnabled = !this.autoEvilEnabled },
+
+        toggleAutoEssence() { this.autoEssenceEnabled = !this.autoEssenceEnabled },
 
         toggleOfflineGain() { this.offlineGainEnabled = !this.offlineGainEnabled; localStorage.setItem(this.localStorageName + "_offlineGainEnabled", this.offlineGainEnabled) },
 
