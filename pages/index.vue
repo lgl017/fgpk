@@ -1968,7 +1968,7 @@ export default {
             let higherDimensions = this.getSkill('higherDimensions')
             
             let ret = (365 * 70) * lifeEssence.getEffect() * astralBody.getEffect() * ceaselessAbyss.getEffect() * cosmicLongevity.getEffect() * higherDimensions.getEffect() * this.achLifespan
-            return ret * 1000000;
+            return ret;
         },
         
         isAlive: function() {
