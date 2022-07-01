@@ -1503,10 +1503,7 @@ class Task extends Base {
     }
     
     progress(gain) {
-		let mult = 1;
-		mult *= 1 + this.bonusLevel / 10;
-
-        this.current += gain * mult
+        this.current += gain
         
         if (this.current >= this.getMax()) {
         
@@ -1521,8 +1518,10 @@ class Task extends Base {
         }
     }
     soulProgress(gain) {
+		let mult = 1;
+		mult *= 1 + this.bonusLevel / 10;
     
-        this.soulCurrent += gain
+        this.soulCurrent += gain * mult
         
         if (this.soulCurrent >= this.getSoulMax()) {
         
