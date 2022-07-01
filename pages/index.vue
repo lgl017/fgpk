@@ -1211,7 +1211,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="container">
+                        <!-- <div class="container">
                             <div class="row mt-2">
                                 <div class="col-12">
 									<button type="button" class="btn p-0 border-0" @click="toggleOfflineGain()">
@@ -1221,7 +1221,7 @@
                                     <span class="h5 text-light text-shadow">{{ $t('settings_extra_content') }}</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="container">
                             <div class="row mt-2">
