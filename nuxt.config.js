@@ -8,7 +8,7 @@ export default {
     target: 'static',
     
     router: {
-        base: '/fgpk/'
+        base: '/fgpk/mod/soul-level/'
     },
     
     // Global page headers
@@ -21,7 +21,7 @@ export default {
             { name: 'format-detection', content: 'telephone=no' },
         ],
         link: [
-            { rel: 'icon', href: '/fgpk/icon.png?v=2' },
+            { rel: 'icon', href: '/fgpk/mod/soul-level/icon.png?v=2' },
             { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Amaranth:wght@300;400;500;600;700;800;900&display=swap' },
         ],
         script: [
