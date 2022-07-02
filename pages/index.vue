@@ -1498,7 +1498,7 @@ class Task extends Base {
         return ret
     }
     getSoulMax() {
-        let ret = Math.round((this.max * 10) * (this.soulLevel + 1) * Math.pow(1.1, this.soulLevel))
+        let ret = Math.round((this.max * 10) * (this.soulLevel + 1) * Math.pow(1.013, this.soulLevel))
         return ret
     }
     
