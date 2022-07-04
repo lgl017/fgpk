@@ -10,6 +10,7 @@ export default {
 	'word_autoExcludeLevelJob': 'Target Level',
 	'word_no_limit': 'All',
 	'word_no_set': 'Any',
+	'word_die': 'Die',
     'word_count': 'Count',
     'word_longest': 'Longest',
     'word_current': 'Current',
@@ -724,5 +725,6 @@ export default {
 	'left_auto_rebirth': "Auto Rebirth",
 	'left_auto_evil': "Auto Evils",
 	'left_auto_essence': "Auto Essences",
-	'left_auto_gain_when': "Amount Bigger when {0}",
+	'left_auto_gain_when': "Amount Bigger then {0}",
+	'left_auto_rebirth_when': "Age bigger then {0} years",
 }

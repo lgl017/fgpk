@@ -283,6 +283,11 @@
                             <div class="col small">
                                 <span class="text-muted text-shadow">{{ $t('left_auto_rebirth') }}</span>
                             </div>
+							<div class="col-auto small">
+								<i18n path="left_auto_rebirth_when" label="span" class="text-light">
+                                	<input class="form-input form-control form-control-sm text-end" autocomplete="off" style="width: 74px; display: inline-block;text-align: center;" :value="typeof autoRebirthNumber === 'string' ? $t(autoRebirthNumber) : autoRebirthNumber" @input="(e) => autoRebirthNumber = e.target.value">
+								</i18n>
+                            </div>
                         </div>
                     </div>
 					<div v-if="rebirthTwoCount >= 1" class="container">
@@ -1942,6 +1947,7 @@ export default {
             timeWarpingEnabled:false,
             offlineGainEnabled:true,
             autoRebirthEnabled:false,
+            autoRebirthNumber_:-1,
             autoEvilEnabled:false,
             autoEvilNumber_:1,
             autoEssenceEnabled:false,
@@ -2089,6 +2095,23 @@ export default {
 				this.$i18n.locale = val;
 
 				localStorage.setItem(this.localStorageName + "_language", this.language)
+			},
+		},
+		autoRebirthNumber: {
+			get: function() {
+				if (isNaN(this.autoRebirthNumber_) || this.autoRebirthNumber_ < 0) {
+					return 'word_die';
+				} else {
+					return this.autoRebirthNumber_;
+				}
+			},
+			set: function(val) {
+				val = +val;
+				if (isNaN(val) || val <= 0) {
+					this.autoRebirthNumber_ = -1;
+				} else {
+					this.autoRebirthNumber_ = val;
+				}
 			},
 		},
 		autoEvilNumber: {
@@ -2288,6 +2311,7 @@ export default {
                 this.autoPauseEnabled = loadeddata.autoPauseEnabled || this.autoPauseEnabled
                 this.autoShopEnabled = loadeddata.autoShopEnabled || this.autoShopEnabled
                 this.autoRebirthEnabled = loadeddata.autoRebirthEnabled || this.autoRebirthEnabled
+                this.autoRebirthNumber = loadeddata.autoRebirthNumber || this.autoRebirthNumber
                 this.autoEvilEnabled = loadeddata.autoEvilEnabled || this.autoEvilEnabled
                 this.autoEvilNumber = loadeddata.autoEvilNumber || this.autoEvilNumber
                 this.autoEssenceEnabled = loadeddata.autoEssenceEnabled || this.autoEssenceEnabled
@@ -2403,6 +2427,7 @@ export default {
                 autoPauseEnabled:this.autoPauseEnabled,
                 autoShopEnabled:this.autoShopEnabled,
                 autoRebirthEnabled:this.autoRebirthEnabled,
+                autoRebirthNumber:this.autoRebirthNumber,
                 autoEvilEnabled:this.autoEvilEnabled,
                 autoEvilNumber:this.autoEvilNumber,
                 autoEssenceEnabled:this.autoEssenceEnabled,
@@ -2542,7 +2567,7 @@ export default {
 				if (this.autoEvilEnabled && this.evilGain > this.autoEvilNumber && this.years >= 200) {
 					this.rebirthTwo();
 				}
-				if (this.autoRebirthEnabled && !this.isAlive && this.years >= 65) {
+				if (this.autoRebirthEnabled && ( this.autoRebirthNumber < 0 ? !this.isAlive : this.years >= this.autoRebirthNumber) && this.years >= 65) {
 					this.rebirthOne();
 				}
 
