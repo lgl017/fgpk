@@ -10,6 +10,7 @@ export default {
     'word_autoExcludeLevelJob': '目标等级',
     'word_no_limit': '不限',
     'word_no_set': '无',
+    'word_die': '死亡',
     'word_count': '计数',
     'word_longest': '最久周目',
     'word_current': '当前周目',
@@ -723,4 +724,5 @@ export default {
 	'left_auto_evil': "自动邪恶",
 	'left_auto_essence': "自动精华",
 	'left_auto_gain_when': "数量大于 {0}",
+	'left_auto_rebirth_when': "年龄大于 {0} 岁",
 }
