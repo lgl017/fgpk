@@ -2567,7 +2567,7 @@ export default {
 				if (this.autoEvilEnabled && this.evilGain > this.autoEvilNumber && this.years >= 200) {
 					this.rebirthTwo();
 				}
-				if (this.autoRebirthEnabled && (!this.isAlive || (this.autoRebirthNumber >= 0 && this.years >= this.autoRebirthNumber) && this.years >= 65) {
+				if (this.autoRebirthEnabled && (!this.isAlive || (this.autoRebirthNumber >= 0 && this.years >= this.autoRebirthNumber)) && this.years >= 65) {
 					this.rebirthOne();
 				}
 
