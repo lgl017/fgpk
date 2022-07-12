@@ -1480,13 +1480,18 @@ class Task extends Base {
 			this._excludeLevel = val;
 		}
 	}
+
+	getGainMulti() {
+    
+        return 1.01 ** this.soulLevel - 1;
+    }
     
     getGain() {
     
         let mult = 1
         this.gainMods.forEach(mod => { mult *= mod.getEffect() })
         
-        mult *= 1 + this.soulLevel / 10
+        mult *= 1.01 ** this.soulLevel
         
         let ret = Math.round(10 * mult)
         return ret
@@ -1939,11 +1944,11 @@ export default {
             startingDays:15 * 365,
             
             paused:false,
-            autoJobEnabled:false,
-            autoJobCatEnabled:false,
-            autoSkillEnabled:false,
+            autoJobEnabled:true,
+            autoJobCatEnabled:true,
+            autoSkillEnabled:true,
             autoPauseEnabled:false,
-            autoShopEnabled:false,
+            autoShopEnabled:true,
             timeWarpingEnabled:false,
             offlineGainEnabled:true,
             autoRebirthEnabled:false,
@@ -2625,7 +2630,10 @@ export default {
 
                 let gainJob = this.getTaskGain(this.currentJob) * tickMuti;
                 this.currentJob.progress(gainJob * this.gameSpeed / this.fps)
-                this.currentJob.soulProgress(gainJob * this.gameSpeed / this.fps)
+				let currentAndPrevJobs = this.jobs.filter((job,i) => job.unlocked && job.cat === this.currentJob.cat && i <= this.jobs.indexOf(this.currentJob));
+				currentAndPrevJobs.forEach(job => {
+					job.soulProgress(gainJob * this.gameSpeed / this.fps)
+				});
                 
                 let gainCoins = this.net * gainDays
                 this.coins += gainCoins

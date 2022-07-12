@@ -44,9 +44,9 @@
                     <span class="text-white text-shadow"><FormatNumber :value="job.bonusLevel" /></span>
                 </div>
                 <div class="col-12"></div>
-                <div class="col-auto small">
+                <div v-if="job.soulLevel > 0" class="col-auto small">
                     <span class="text-light text-shadow">{{ $t('job_speed') }}</span>
-                    <span class="text-success text-shadow">+<FormatNumber :value="job.soulLevel * 10" /> %</span>
+                    <span class="text-success text-shadow">+<FormatNumber :value="(job.getGainMulti() * 100).toFixed(0)" /> %</span>
                 </div>
 				<div v-if="job.bonusLevel > 0" class="col-auto small">
                     <span class="text-light text-shadow">{{ $t('job_soulSpeed') }}</span>
